@@ -11,7 +11,9 @@ export class SearchForm extends Component {
     super();
     this.state = {
       searchTerm: '',
-      error: ''
+      error: '',
+      multipleEntries: false,
+      results: [],
     }
   }
 
@@ -26,10 +28,29 @@ export class SearchForm extends Component {
   }
 
   checkResultsBeforeUpdatingStore = (results) => {
-    if (results[0].name) {
+    if (results.length > 1) {
+      this.setState({ 
+        multipleEntries: true,
+        results: results
+      })
+    } else if (results[0].name) {
       this.props.setCurrentCandidate(results[0]);
       this.resetError()
     }
+  }
+
+  handleDisambiguationSelection = (campaign) => {
+    this.props.setCurrentCandidate(campaign);
+    this.setState({ 
+      results: [],
+      multipleEntries: false
+     })
+  }
+
+  generateDisambiguationList = (results) => {
+    return results.map(campaign => {
+      return <p onClick={() => {this.handleDisambiguationSelection(campaign)}}>{campaign.office_full}</p>
+    })
   }
 
   resetError = () => {
@@ -38,9 +59,12 @@ export class SearchForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    this.props.setCurrentCandidate(null);
+    
     try {
       let results = await searchCandidateByName(this.state.searchTerm);
       this.checkResultsBeforeUpdatingStore(results);
+      console.log(results)
     } 
     catch (err) {
       this.setState({ error: `No candidate found with \n
@@ -50,6 +74,12 @@ export class SearchForm extends Component {
   }
 
   render() {
+
+    let disambiguationList;
+    if (this.state.results.length >1 ) {
+      disambiguationList = this.generateDisambiguationList(this.state.results)
+    } 
+
     return(
       <form>
         <input 
@@ -60,6 +90,8 @@ export class SearchForm extends Component {
         />
         <button onClick={this.handleSubmit}>Search</button>
         {this.state.error && <p>{this.state.error}</p>}
+        {this.state.multipleEntries && <p>Select which campaign you'd like to look into. </p>}
+        {this.state.multipleEntries && <>{disambiguationList}</> }
       </form>
     )
   }

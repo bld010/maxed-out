@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
+import Committee from '../Committee/Committee';
 
 
 export class App extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   componentDidMount = async () => {
     
@@ -21,6 +20,7 @@ export class App extends Component {
         <header className="App-header">
           <SearchForm />
           {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
+          {this.props.candidate && <Committee />}
         </header>
       </div>
     )
