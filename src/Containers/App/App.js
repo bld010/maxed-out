@@ -3,6 +3,7 @@ import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
+import { Route } from 'react-router-dom';
 
 
 export class App extends Component {
@@ -34,6 +35,15 @@ export class App extends Component {
           {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
           {this.props.candidate && <>{committeeList}</> }
         </header>
+
+        <main> 
+          <Route path='/committee/:id' render={({ match }) => {
+            console.log(match)
+            return(
+              <p>Testing Route</p>
+            )
+          }} />
+        </main>
       </div>
     )
   }

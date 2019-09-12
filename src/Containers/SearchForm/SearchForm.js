@@ -49,7 +49,12 @@ export class SearchForm extends Component {
 
   generateDisambiguationList = (results) => {
     return results.map(campaign => {
-      return <p key={campaign.candidate_id} onClick={() => {this.handleDisambiguationSelection(campaign)}}>{campaign.office_full}</p>
+      return <p className="disambiguation" 
+        tabIndex={0} 
+        key={campaign.candidate_id} 
+        onClick={() => {this.handleDisambiguationSelection(campaign)}}>
+        {campaign.name} ({campaign.state} {campaign.office_full})
+        </p>
     })
   }
 
@@ -71,7 +76,6 @@ export class SearchForm extends Component {
       this.setState({ error: `No candidate found with \n
       that name. Check your spelling and try again.` })
     }
-    // this.clearInput();
   }
 
   render() {
@@ -83,7 +87,7 @@ export class SearchForm extends Component {
     } 
 
     return(
-      <form>
+      <form className="SearchForm">
         <input 
           type='text' 
           value={this.state.searchTerm}

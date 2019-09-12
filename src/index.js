@@ -9,14 +9,14 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { rootReducer } from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
 <Provider store={store}>
   <BrowserRouter>
-    <Route exact path='/' component={App} />
+    <Route path='/' component={App} />
   </BrowserRouter>
 </Provider>
 

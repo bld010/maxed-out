@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentCandidate } from '../../actions/index';
+import { Link } from 'react-router-dom';
 
 class Committee extends Component {
 
   render() {
 
+    const { name, committee_type_full, state, committee_id } = this.props.committee
    
     console.log(this.props.committee)
     return(
-      <>
-      <p>Committee Name: {this.props.committee.name}</p>
-      </>
+      
+      <Link to={`/committee/${committee_id}`}>
+        <article className="Committee">
+          <p>{name} ({state} {committee_type_full})</p>
+        </article>
+      </Link>
+
     )
 
   }
