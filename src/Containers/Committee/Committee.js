@@ -2,21 +2,47 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentCandidate } from '../../actions/index';
 import { Link } from 'react-router-dom';
+import { searchCommitteeById, searchCandidateById } from '../../util/apiCalls';
 
 class Committee extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      committee: null,
+      candidate: null,
+      error: ''
+    }
+  }
+
+
+
+  componentDidMount = async () => {
+    
+    try {
+      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);
+      this.setState({
+        committee: committeeSearchResults[0]
+      })
+      let candidate = await searchCandidateById(this.state.committee.candidate_ids[0])
+      this.props.setCurrentCandidate(candidate[0]);
+    } catch (err) {
+      this.setState({
+        error: err.message
+      })
+    }
+
+  }
+
   render() {
 
-    const { name, committee_type_full, state, committee_id } = this.props.committee
-   
-    console.log(this.props.committee)
     return(
       
-      <Link to={`/committee/${committee_id}`}>
+      
         <article className="Committee">
-          <p>{name} ({state} {committee_type_full})</p>
+          {this.state.committee && <p>{this.state.committee.committee_id}</p>}
         </article>
-      </Link>
+     
 
     )
 

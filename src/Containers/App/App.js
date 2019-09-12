@@ -3,7 +3,7 @@ import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 
 export class App extends Component {
@@ -15,9 +15,16 @@ export class App extends Component {
   }
 
   generateCommitteeList = () => {
+  
     return this.props.candidate.principal_committees.map(committee => {
-      return <Committee key={committee.committee_id} committee={committee} />
-    })
+      const { name, state, committee_id, committee_type_full } = committee
+      return (
+        <Link to={`/committee/${committee_id}`}>
+          <article className="Committee">
+            <p>{name} ({state} {committee_type_full})</p>
+          </article>
+        </Link>
+    )})
   }
 
   render() {
@@ -38,9 +45,10 @@ export class App extends Component {
 
         <main> 
           <Route path='/committee/:id' render={({ match }) => {
-            console.log(match)
+            console.log(match, 'match.params.id: committee ID')
+            // this component's willMount() will fetch committee/candidate info
             return(
-              <p>Testing Route</p>
+              <Committee committee_id={match.params.id}/>
             )
           }} />
         </main>
