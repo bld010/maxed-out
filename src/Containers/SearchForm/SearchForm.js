@@ -49,7 +49,7 @@ export class SearchForm extends Component {
 
   generateDisambiguationList = (results) => {
     return results.map(campaign => {
-      return <p onClick={() => {this.handleDisambiguationSelection(campaign)}}>{campaign.office_full}</p>
+      return <p key={campaign.candidate_id} onClick={() => {this.handleDisambiguationSelection(campaign)}}>{campaign.office_full}</p>
     })
   }
 
@@ -64,6 +64,7 @@ export class SearchForm extends Component {
     try {
       let results = await searchCandidateByName(this.state.searchTerm);
       this.checkResultsBeforeUpdatingStore(results);
+      this.resetError();
       console.log(results)
     } 
     catch (err) {
@@ -76,6 +77,7 @@ export class SearchForm extends Component {
   render() {
 
     let disambiguationList;
+
     if (this.state.results.length >1 ) {
       disambiguationList = this.generateDisambiguationList(this.state.results)
     } 

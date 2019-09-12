@@ -5,10 +5,12 @@ import { setCurrentCandidate } from '../../actions/index';
 class Committee extends Component {
 
   render() {
-    console.log(this.props.candidate.principal_committees[0])
+
+   
+    console.log(this.props.committee)
     return(
       <>
-      <p>Committee Name: {this.props.candidate && this.props.candidate.principal_committees[0].name}</p>
+      <p>Committee Name: {this.props.committee.name}</p>
       </>
     )
 
