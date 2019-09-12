@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
+import { connect } from 'react-redux';
 
 
 export class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      candidate: undefined,
-      candidateId: undefined
-    }
+  constructor(props) {
+    super(props)
   }
 
   componentDidMount = async () => {
@@ -18,15 +15,22 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="App">
         <header className="App-header">
           <SearchForm />
-          {/* {this.state.candidate && <p>Candidate: {this.state.candidate.name}</p>} */}
+          {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
         </header>
       </div>
     )
   }
 }
 
-export default App;
+export const mapStateToProps = state => ({
+  candidate: state.candidate
+})
+
+export default connect(mapStateToProps)(App);
+
+// PropTypes
