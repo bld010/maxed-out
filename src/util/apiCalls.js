@@ -7,10 +7,11 @@ export const searchCandidateByName = async (searchTerm) => {
   try {
     let candidateSearchResult = await fetch(url)
     let results = await candidateSearchResult.json()
+    if (results.ok === false) {
+      throw new Error('There was an error searching for the candidate')
+    }
     return(results.results)
-  } catch {
-    console.log('Error searching for candidate.')
+  } catch (err) {
+    throw err
   }
-
-  
 }

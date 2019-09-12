@@ -11,6 +11,7 @@ export class SearchForm extends Component {
     super();
     this.state = {
       searchTerm: '',
+      error: ''
     }
   }
 
@@ -25,20 +26,27 @@ export class SearchForm extends Component {
   }
 
   checkResultsBeforeUpdatingStore = (results) => {
-    if (results) {
-      this.props.setCurrentCandidate(results[0])
-    } else {
-      // throw an error to show on dom
+    if (results[0].name) {
+      this.props.setCurrentCandidate(results[0]);
+      this.resetError()
     }
   }
 
+  resetError = () => {
+    this.setState({ error: '' })
+  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    let results = await searchCandidateByName(this.state.searchTerm);
-    this.checkResultsBeforeUpdatingStore(results);
-    console.log(results[0])
-    this.clearInput();
+    try {
+      let results = await searchCandidateByName(this.state.searchTerm);
+      this.checkResultsBeforeUpdatingStore(results);
+    } 
+    catch (err) {
+      this.setState({ error: `No candidate found with \n
+      that name. Check your spelling and try again.` })
+    }
+    // this.clearInput();
   }
 
   render() {
@@ -51,6 +59,7 @@ export class SearchForm extends Component {
           onChange={this.handleSearchInput} 
         />
         <button onClick={this.handleSubmit}>Search</button>
+        {this.state.error && <p>{this.state.error}</p>}
       </form>
     )
   }
