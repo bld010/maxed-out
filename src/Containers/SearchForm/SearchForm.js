@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './SearchForm.scss';
 import { searchCandidateByName } from '../../util/apiCalls';
+import { connect } from 'react-redux';
+import { setCurrentCandidate } from '../../actions';
+import PropTypes from 'prop-types';
+
 export class SearchForm extends Component {
 
   constructor() {
     super();
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
     }
   }
 
@@ -20,10 +24,20 @@ export class SearchForm extends Component {
     this.setState({ searchTerm: ''});
   }
 
+  checkResultsBeforeUpdatingStore = (results) => {
+    if (results) {
+      this.props.setCurrentCandidate(results[0])
+    } else {
+      // throw an error to show on dom
+    }
+  }
+
+
   handleSubmit = async (e) => {
     e.preventDefault();
-    let candidate = await searchCandidateByName(this.state.searchTerm);
-    console.log(candidate[0])
+    let results = await searchCandidateByName(this.state.searchTerm);
+    this.checkResultsBeforeUpdatingStore(results);
+    console.log(results[0])
     this.clearInput();
   }
 
@@ -42,7 +56,15 @@ export class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export const mapDispatchToProps = dispatch => ({
+  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate))
+})
+
+export default connect(null, mapDispatchToProps)(SearchForm);
+
+SearchForm.propTypes = {
+  setCurrentCandidate: PropTypes.func.isRequired
+}
 
 // update store with cleaned candidate object
 // update store with candidate_id
