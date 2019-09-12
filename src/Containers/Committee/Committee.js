@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentCandidate } from '../../actions/index';
 import { Link } from 'react-router-dom';
-import { searchCommitteeById, searchCandidateById } from '../../util/apiCalls';
+import { searchCommitteeById, searchCandidateById, fetchPACContributions } from '../../util/apiCalls';
 
 class Committee extends Component {
 
@@ -11,6 +11,8 @@ class Committee extends Component {
     this.state = {
       committee: null,
       candidate: null,
+      pacContributions: [],
+      indivContributions: [],
       error: ''
     }
   }
@@ -21,7 +23,11 @@ class Committee extends Component {
     
     try {
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);
+      // move this to another container
+      let pacContributions = await fetchPACContributions(this.props.committee_id);
+      
       this.setState({
+        pacContributions: pacContributions,
         committee: committeeSearchResults[0]
       })
       let candidate = await searchCandidateById(this.state.committee.candidate_ids[0])
@@ -39,9 +45,15 @@ class Committee extends Component {
     return(
       
       
-        <article className="Committee">
+        <section className="Committee">
           {this.state.committee && <p>{this.state.committee.committee_id}</p>}
-        </article>
+          {this.props.candidate && <p>{this.props.candidate.name}</p>}
+
+
+          <article className="Contributions">
+
+          </article>
+        </section>
      
 
     )

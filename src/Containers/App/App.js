@@ -45,8 +45,6 @@ export class App extends Component {
 
         <main> 
           <Route path='/committee/:id' render={({ match }) => {
-            console.log(match, 'match.params.id: committee ID')
-            // this component's willMount() will fetch committee/candidate info
             return(
               <Committee committee_id={match.params.id}/>
             )
