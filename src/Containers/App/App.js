@@ -3,6 +3,7 @@ import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
+import { setCurrentCommitteeId } from '../../actions/index';
 import { Route, Link } from 'react-router-dom';
 
 
@@ -20,7 +21,7 @@ export class App extends Component {
       const { name, state, committee_id, committee_type_full } = committee
       return (
         <Link to={`/committee/${committee_id}`}>
-          <article className="Committee">
+          <article onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="Committee">
             <p>{name} ({state} {committee_type_full})</p>
           </article>
         </Link>
@@ -56,9 +57,14 @@ export class App extends Component {
 }
 
 export const mapStateToProps = state => ({
-  candidate: state.candidate
+  candidate: state.candidate,
+  committee_id: state.committee_id
 })
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = dispatch => ({
+  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // PropTypes

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentCandidate } from '../../actions/index';
+import { setCurrentCandidate, setCurrentCommitteeId } from '../../actions/index';
 import { Link } from 'react-router-dom';
+import Contributions from '../Contributions/Contributions';
 import { searchCommitteeById, searchCandidateById, fetchPACContributions } from '../../util/apiCalls';
 
 class Committee extends Component {
@@ -11,8 +12,6 @@ class Committee extends Component {
     this.state = {
       committee: null,
       candidate: null,
-      pacContributions: [],
-      indivContributions: [],
       error: ''
     }
   }
@@ -22,14 +21,11 @@ class Committee extends Component {
   componentDidMount = async () => {
     
     try {
-      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);
-      // move this to another container
-      let pacContributions = await fetchPACContributions(this.props.committee_id);
-      
+      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
       this.setState({
-        pacContributions: pacContributions,
         committee: committeeSearchResults[0]
       })
+      this.props.setCurrentCommitteeId(this.props.committee_id)
       let candidate = await searchCandidateById(this.state.committee.candidate_ids[0])
       this.props.setCurrentCandidate(candidate[0]);
     } catch (err) {
@@ -50,9 +46,7 @@ class Committee extends Component {
           {this.props.candidate && <p>{this.props.candidate.name}</p>}
 
 
-          <article className="Contributions">
-
-          </article>
+          {this.state.committee && <Contributions type="PAC" committee_id={this.props.committee_id} />}
         </section>
      
 
@@ -66,8 +60,10 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate))
+  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
+  setCurrentCommitteeId: (committee_id) => dispatch(setCurrentCommitteeId(committee_id))
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Committee);
 
