@@ -1,21 +1,20 @@
 import React, { Component} from 'react';
 import { fetchPACContributions } from '../../util/apiCalls';
-// import { connect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Contributions.scss';
+import { setPacContributions } from '../../actions/index'
 
-export default class Contributions extends Component {
+export class Contributions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contributions: [],
-      contributions_type: this.props.type,
       error: ''
     }
   }
 
 
   generateContributionList = () => {
-    return this.state.contributions.map(contribution => {
+    return this.props.pacContributions.map(contribution => {
       return <div className="contribution" key={contribution.transaction_id}>
         {contribution.contributor_name}: ${contribution.contribution_receipt_amount}
       </div>
@@ -24,40 +23,38 @@ export default class Contributions extends Component {
 
 
   componentDidMount = async () => {
-    try {
-      if (this.state.contributions_type === 'PAC') {
-        let pacContributions = await fetchPACContributions(this.props.committee_id);
-        this.setState({
-          contributions: pacContributions
-        })
-        console.log(pacContributions[0])
-      }
-      
-    } catch (err) {
-      this.setState({ error: err.message })
-    }
+    
+    
   }
 
 
   render() {
-
+    console.log(this.props.setPacContributions)
     return(
       <section className="Contributions">
       <p>test</p>
-      {this.state.contributions.length > 0 && <div>{this.generateContributionList()}</div>}
+      {this.props.pacContributions.length > 0 && <div>{this.generateContributionList()}</div>}
       </section>
     )
   }
 }
 
+export const mapStateToProps = state => ({
+  candidate: state.candidate,
+  committee_id: state.committee_id,
+  pacContributions: state.pacContributions
+})
 
-//make a reducer to store pacContributions and indivContributions
-// export const mapStateToProps = state => ({
-//   candidate: state.candidate
-// })
+export const mapDispatchToProps = dispatch => ({
+  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
 
-// export default connect(mapStateToProps, )
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contributions)
 
 
 // propTYpes
-// committee_id, type
+// committee_id, type, candidate, setPacCOntributions
+
+
