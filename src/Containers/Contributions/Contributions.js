@@ -29,7 +29,7 @@ export class Contributions extends Component {
 
 
   render() {
-    console.log(this.props.setPacContributions)
+    // console.log(this.props.setPacContributions)
     return(
       <section className="Contributions">
       <p>test</p>

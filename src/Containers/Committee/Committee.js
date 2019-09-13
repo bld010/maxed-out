@@ -18,32 +18,35 @@ class Committee extends Component {
   }
 
 
-  getPacContributions = async () => {
-    try {
+  // getPacContributions = async () => {
+  //   try {
 
     
-    let pacContributions = await fetchPACContributions(this.props.committee_id);
-    console.log(pacContributions, 'results of paccontributions')
-    this.props.setPacContributions(pacContributions);
-    } catch (err) {
-      this.setState({ error: err.message })
-    }
+  //   let pacContributions = await fetchPACContributions(this.props.committee_id);
+  //   console.log(pacContributions, 'results of paccontributions')
+  //   this.props.setPacContributions(pacContributions);
+  //   } catch (err) {
+  //     this.setState({ error: err.message })
+  //   }
+  // }
+
+
+  handleDyanmicPathData = async () => {
+  
   }
-
-
+  
+  
   componentDidMount = async () => {
     
     this.props.setCurrentCommitteeId(this.props.committee_id);
-
+    
     try {
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
-      // this.setState({
-      //   committee: committeeSearchResults[0]
-      // })
-      // this.props.setCurrentCommitteeId(this.props.committee_id)
-      
-      let candidate = await searchCandidateById(this.state.committee.candidate_ids[0])
-      this.props.setCurrentCandidate(candidate[0]);
+      this.setState({ committee: committeeSearchResults})
+      let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
+      this.props.setCurrentCandidate(candidate[0])
+      // console.log(this.state.committee[0].candidate_ids[0])
+
     } catch (err) {
       this.setState({
         error: err.message
@@ -54,13 +57,11 @@ class Committee extends Component {
 
   render() {
     
-    this.getPacContributions();
-
     return(
       
       
         <section className="Committee">
-          {this.state.committee && <p>{this.state.committee.committee_id}</p>}
+          {this.state.committee_id && <p>{this.state.committee.committee_id}</p>}
           {this.props.candidate && <p>{this.props.candidate.name}</p>}
 
 

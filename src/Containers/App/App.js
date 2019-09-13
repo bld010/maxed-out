@@ -5,15 +5,36 @@ import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
 import { setCurrentCommitteeId } from '../../actions/index';
 import { Route, Link } from 'react-router-dom';
+import { setPacContributions, setCurrentCandidate } from '../../actions';
+import { fetchPACContributions, searchCandidateById } from '../../util/apiCalls';
 
 
 export class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.getPacContributions = this.getPacContributions.bind(this);
+    this.searchCandidateById = searchCandidateById.bind(this);
+  }
 
   componentDidMount = async () => {
     
 
   }
+
+
+  getPacContributions = async (committee_id) => {
+    try {
+    let pacContributions = await fetchPACContributions(committee_id);
+    this.props.setPacContributions(pacContributions);
+    } catch (err) {
+      this.setState({ error: err.message })
+    }
+  }
+
+
+  
+
 
   generateCommitteeList = () => {
   
@@ -27,6 +48,7 @@ export class App extends Component {
         </Link>
     )})
   }
+
 
   render() {
 
@@ -46,6 +68,7 @@ export class App extends Component {
 
         <main> 
           <Route path='/committee/:id' render={({ match }) => {
+            this.getPacContributions(match.params.id);
             return(
               <Committee committee_id={match.params.id}/>
             )
@@ -62,7 +85,9 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id))
+  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id)),
+  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
+  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

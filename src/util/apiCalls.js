@@ -43,6 +43,7 @@ export const searchCandidateById = async (candidate_id) => {
     if (results.ok === false) {
       throw new Error ('There was an error searching for the candidate')
     }
+    console.log('results', results.results)
     return results.results
   } catch (err) {
     throw err
