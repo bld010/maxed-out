@@ -1,0 +1,12 @@
+.Committee {
+
+  display: flex;
+  flex-direction: column;
+  // background: pink;
+
+  & .contributions {
+    display: flex;
+    flex-direction: row;
+    width: 100%
+  }
+}

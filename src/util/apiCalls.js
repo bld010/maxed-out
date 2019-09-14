@@ -1,7 +1,7 @@
 export const searchCandidateByName = async (searchTerm) => {
 
   let formattedSearchTerm = searchTerm.toLowerCase().split().join('%20')
-  let url = `https://api.open.fec.gov/v1/candidates/search/?sort_null_only=false&sort_nulls_last=false&per_page=20&sort=name&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&sort_hide_null=false&name=${formattedSearchTerm}&page=1`
+  let url = `https://api.open.fec.gov/v1/candidates/search/?sort_null_only=false&sort_nulls_last=false&per_page=100&sort=name&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&sort_hide_null=false&name=${formattedSearchTerm}&page=1`
 
 
   try {
@@ -17,7 +17,7 @@ export const searchCandidateByName = async (searchTerm) => {
 }
 
 export const searchCommitteeById = async (committee_id) => {
-  let url = `https://api.open.fec.gov/v1/committee/${committee_id}/?sort=name&sort_null_only=false&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=20&sort_nulls_last=false&sort_hide_null=true&page=1`
+  let url = `https://api.open.fec.gov/v1/committee/${committee_id}/?sort=name&sort_null_only=false&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=100&sort_nulls_last=false&sort_hide_null=true&page=1`
 
   try {
     let committeeSearchResult = await fetch(url);
@@ -34,7 +34,7 @@ export const searchCommitteeById = async (committee_id) => {
 
 export const searchCandidateById = async (candidate_id) => {
 
-  let url = `https://api.open.fec.gov/v1/candidates/search/?api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=20&candidate_id=${candidate_id}&sort_nulls_last=false&sort_hide_null=false&page=1&sort=name&sort_null_only=false
+  let url = `https://api.open.fec.gov/v1/candidates/search/?api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=100&candidate_id=${candidate_id}&sort_nulls_last=false&sort_hide_null=false&page=1&sort=name&sort_null_only=false
   `
 
   try {
@@ -43,7 +43,6 @@ export const searchCandidateById = async (candidate_id) => {
     if (results.ok === false) {
       throw new Error ('There was an error searching for the candidate')
     }
-    console.log('results', results.results)
     return results.results
   } catch (err) {
     throw err
@@ -52,7 +51,7 @@ export const searchCandidateById = async (candidate_id) => {
 
 export const fetchPACContributions = async (committee_id) => {
 
-  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&per_page=20&min_amount=5000&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&min_date=2010-01-01&is_individual=false&sort_hide_null=false`
+  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=false&sort_hide_null=false`
 
   try {
     let pacContributions = await fetch(url);

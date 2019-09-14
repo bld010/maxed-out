@@ -3,10 +3,10 @@ import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
-import { setCurrentCommitteeId } from '../../actions/index';
 import { Route, Link } from 'react-router-dom';
-import { setPacContributions, setCurrentCandidate } from '../../actions';
-import { fetchPACContributions, searchCandidateById } from '../../util/apiCalls';
+import { setPacContributions } from '../../actions';
+import { fetchPACContributions } from '../../util/apiCalls';
+import SearchDisambiguation from '../../Components/SearchDisambiguation.js';
 
 
 export class App extends Component {
@@ -14,14 +14,9 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.getPacContributions = this.getPacContributions.bind(this);
-    this.searchCandidateById = searchCandidateById.bind(this);
   }
 
-  componentDidMount = async () => {
-    
-
-  }
-
+  componentDidMount = async () => {};
 
   getPacContributions = async (committee_id) => {
     try {
@@ -36,39 +31,31 @@ export class App extends Component {
   
 
 
-  generateCommitteeList = () => {
-  
-    return this.props.candidate.principal_committees.map(committee => {
-      const { name, state, committee_id, committee_type_full } = committee
-      return (
-        <Link to={`/committee/${committee_id}`}>
-          <article onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="Committee">
-            <p>{name} ({state} {committee_type_full})</p>
-          </article>
-        </Link>
-    )})
-  }
+
 
 
   render() {
 
-    let committeeList;
+    // let committeeList;
 
-    if (this.props.candidate) {
-      committeeList = this.generateCommitteeList()
-    }
+    
 
     return (
       <div className="App">
         <header className="App-header">
           <SearchForm />
-          {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-          {this.props.candidate && <>{committeeList}</> }
+            <Route path='/candidate/:candidate_id' render={({match}) => {
+              return ( <SearchDisambiguation candidate_id={match.params.candidate_id} /> )
+          }} />
+          
+          
         </header>
 
         <main> 
           <Route path='/committee/:id' render={({ match }) => {
+            this.props.setPacContributions([]);
             this.getPacContributions(match.params.id);
+
             return(
               <Committee committee_id={match.params.id}/>
             )
@@ -85,9 +72,7 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id)),
   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
-  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

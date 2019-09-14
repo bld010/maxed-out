@@ -1,5 +1,4 @@
 import React, { Component} from 'react';
-import { fetchPACContributions } from '../../util/apiCalls';
 import { connect } from 'react-redux';
 import './Contributions.scss';
 import { setPacContributions } from '../../actions/index'
@@ -14,11 +13,13 @@ export class Contributions extends Component {
 
 
   generateContributionList = () => {
-    return this.props.pacContributions.map(contribution => {
-      return <div className="contribution" key={contribution.transaction_id}>
-        {contribution.contributor_name}: ${contribution.contribution_receipt_amount}
-      </div>
-    })
+    if( this.props.type === 'PAC') {
+      return this.props.pacContributions.map((contribution, index) => {
+        return <div className="contribution" key={index}>
+          {contribution.contributor_name}: ${contribution.contribution_receipt_amount}
+        </div>
+      })
+    }
   }
 
 
@@ -29,11 +30,10 @@ export class Contributions extends Component {
 
 
   render() {
-    // console.log(this.props.setPacContributions)
+    
     return(
       <section className="Contributions">
-      <p>test</p>
-      {this.props.pacContributions.length > 0 && <div>{this.generateContributionList()}</div>}
+        {this.props.pacContributions.length > 0 && this.generateContributionList(this.props.type)}
       </section>
     )
   }

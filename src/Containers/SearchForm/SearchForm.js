@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './SearchForm.scss';
 import { searchCandidateByName } from '../../util/apiCalls';
 import { connect } from 'react-redux';
-import { setCurrentCandidate } from '../../actions';
+import { setCurrentCandidate, setPacContributions } from '../../actions';
 import PropTypes from 'prop-types';
+import { Link, Route } from 'react-router-dom';
 
 export class SearchForm extends Component {
 
@@ -21,10 +22,12 @@ export class SearchForm extends Component {
     this.setState({
       searchTerm: e.target.value
     })
+    this.props.setPacContributions([]);
   }
 
   clearInput = () => {
     this.setState({ searchTerm: ''});
+    
   }
 
   checkResultsBeforeUpdatingStore = (results) => {
@@ -49,13 +52,23 @@ export class SearchForm extends Component {
 
   generateDisambiguationList = (results) => {
     return results.map(campaign => {
-      return <p className="disambiguation" 
-        tabIndex={0} 
-        key={campaign.candidate_id} 
-        onClick={() => {this.handleDisambiguationSelection(campaign)}}>
-        {campaign.name} ({campaign.state} {campaign.office_full})
-        </p>
+      return (
+
+        <Link to={`/candidate/${campaign.candidate_id}`}>
+          <p className="disambiguation" 
+          tabIndex={0} 
+          key={campaign.candidate_id} 
+          onClick={() => {this.handleDisambiguationSelection(campaign)}}>
+          {campaign.name} ({campaign.state} {campaign.office_full})
+          </p>
+        </Link>
+      )
+      
     })
+  }
+
+  componentDidMount = () => {
+    
   }
 
   resetError = () => {
@@ -66,11 +79,11 @@ export class SearchForm extends Component {
     e.preventDefault();
     this.props.setCurrentCandidate(null);
     
+    
     try {
       let results = await searchCandidateByName(this.state.searchTerm);
       this.checkResultsBeforeUpdatingStore(results);
       this.resetError();
-      console.log(results)
     } 
     catch (err) {
       this.setState({ error: `No candidate found with \n
@@ -104,7 +117,9 @@ export class SearchForm extends Component {
 }
 
 export const mapDispatchToProps = dispatch => ({
-  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate))
+  setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
+  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions))
+
 })
 
 export default connect(null, mapDispatchToProps)(SearchForm);

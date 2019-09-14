@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentCandidate, setCurrentCommitteeId, setPacContributions } from '../../actions/index';
-import { Link } from 'react-router-dom';
 import Contributions from '../Contributions/Contributions';
-import { searchCommitteeById, searchCandidateById, fetchPACContributions} from '../../util/apiCalls';
+import { searchCommitteeById, searchCandidateById } from '../../util/apiCalls';
+import './Committee.scss';
 
 
 class Committee extends Component {
@@ -16,24 +16,6 @@ class Committee extends Component {
       error: ''
     }
   }
-
-
-  // getPacContributions = async () => {
-  //   try {
-
-    
-  //   let pacContributions = await fetchPACContributions(this.props.committee_id);
-  //   console.log(pacContributions, 'results of paccontributions')
-  //   this.props.setPacContributions(pacContributions);
-  //   } catch (err) {
-  //     this.setState({ error: err.message })
-  //   }
-  // }
-
-
-  handleDyanmicPathData = async () => {
-  
-  }
   
   
   componentDidMount = async () => {
@@ -45,8 +27,6 @@ class Committee extends Component {
       this.setState({ committee: committeeSearchResults})
       let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
       this.props.setCurrentCandidate(candidate[0])
-      // console.log(this.state.committee[0].candidate_ids[0])
-
     } catch (err) {
       this.setState({
         error: err.message
@@ -58,17 +38,20 @@ class Committee extends Component {
   render() {
     
     return(
-      
+
       
         <section className="Committee">
           {this.state.committee_id && <p>{this.state.committee.committee_id}</p>}
           {this.props.candidate && <p>{this.props.candidate.name}</p>}
 
+          <div className="contributions">
 
-          <Contributions type="PAC" />
+            <Contributions type="PAC" />
+            {/* Change to Individuals */}
+            <Contributions type="PAC" />
+
+          </div>
         </section>
-     
-
     )
 
   }
