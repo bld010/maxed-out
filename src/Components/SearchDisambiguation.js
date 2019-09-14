@@ -13,7 +13,7 @@ export class SearchDisambiguation extends Component {
     return this.props.candidate.principal_committees.map((committee, index) => {
       const { name, state, committee_id, committee_type_full } = committee
       return (
-        <Link key={index} to={`/committee/${committee_id}`}>
+        <Link key={index} to={`/candidate/${this.props.candidate.candidate_id}/committee/${committee_id}`}>
           <article onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="committee-disambiguation">
             <p>{name} ({state} {committee_type_full})</p>
           </article>
@@ -26,6 +26,7 @@ export class SearchDisambiguation extends Component {
     try {
       let candidateSearchResults = await searchCandidateById(this.props.candidate_id)
       this.props.setCurrentCandidate(candidateSearchResults[0]);
+      
       console.log(this.props)
 
     } catch (err) {
@@ -45,9 +46,10 @@ export class SearchDisambiguation extends Component {
 
     return(
       <>
+      {/* <Route path='/candidate/:candidate_id/committee/:committee_id' render={} */}
       <p>this is sa test</p>
       {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-      {this.props.candidate && this.props.candidate.principal_committees.length > 1 && <><div>Select a Campaign Committee</div>{committeeList}</> }
+      {this.props.candidate && <><div>Select a Campaign Committee</div>{committeeList}</> }
       </>
     )
   }

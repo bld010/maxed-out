@@ -52,7 +52,7 @@ export class App extends Component {
         </header>
 
         <main> 
-          <Route path='/committee/:id' render={({ match }) => {
+          <Route path='/candidate/:candidate_id/committee/:id' render={({ match }) => {
             this.props.setPacContributions([]);
             this.getPacContributions(match.params.id);
 

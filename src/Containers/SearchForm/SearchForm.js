@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './SearchForm.scss';
 import { searchCandidateByName } from '../../util/apiCalls';
 import { connect } from 'react-redux';
-import { setCurrentCandidate, setPacContributions } from '../../actions';
+import { setCurrentCandidate, setPacContributions, setCurrentCommitteeId } from '../../actions';
 import PropTypes from 'prop-types';
 import { Link, Route } from 'react-router-dom';
+import SearchDisambiguation from '../../Components/SearchDisambiguation';
 
 export class SearchForm extends Component {
 
@@ -15,6 +16,7 @@ export class SearchForm extends Component {
       error: '',
       multipleEntries: false,
       results: [],
+
     }
   }
 
@@ -22,7 +24,6 @@ export class SearchForm extends Component {
     this.setState({
       searchTerm: e.target.value
     })
-    this.props.setPacContributions([]);
   }
 
   clearInput = () => {
@@ -38,6 +39,8 @@ export class SearchForm extends Component {
       })
     } else if (results[0].name) {
       this.props.setCurrentCandidate(results[0]);
+      this.setState({ results: results });
+      // this.props.setCurrentCommitteeId(this.props.)
       this.resetError()
     }
   }
@@ -68,7 +71,6 @@ export class SearchForm extends Component {
   }
 
   componentDidMount = () => {
-    
   }
 
   resetError = () => {
@@ -78,13 +80,13 @@ export class SearchForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.props.setCurrentCandidate(null);
-    
-    
+    this.props.setPacContributions([]);
+    this.props.setCurrentCommitteeId(null);
     try {
       let results = await searchCandidateByName(this.state.searchTerm);
       this.checkResultsBeforeUpdatingStore(results);
       this.resetError();
-    } 
+      } 
     catch (err) {
       this.setState({ error: `No candidate found with \n
       that name. Check your spelling and try again.` })
@@ -92,12 +94,11 @@ export class SearchForm extends Component {
   }
 
   render() {
-
     let disambiguationList;
 
-    if (this.state.results.length >1 ) {
+    if (this.state.results.length > 0 ) {
       disambiguationList = this.generateDisambiguationList(this.state.results)
-    } 
+    }
 
     return(
       <form className="SearchForm">
@@ -110,7 +111,7 @@ export class SearchForm extends Component {
         <button onClick={this.handleSubmit}>Search</button>
         {this.state.error && <p>{this.state.error}</p>}
         {this.state.multipleEntries && <p>Select which campaign you'd like to look into. </p>}
-        {this.state.multipleEntries && <>{disambiguationList}</> }
+        {disambiguationList}
       </form>
     )
   }
@@ -118,7 +119,8 @@ export class SearchForm extends Component {
 
 export const mapDispatchToProps = dispatch => ({
   setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
-  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions))
+  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
+  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id))
 
 })
 
