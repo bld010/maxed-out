@@ -12,3 +12,8 @@ export const setPacContributions = pac_contributions => ({
   type: 'SET_PAC_CONTRIBUTIONS',
   pacContributions: pac_contributions
 })
+
+export const setIndividualContributions = individual_contributions => ({
+  type: 'SET_INDIVIDUAL_CONTRIBUTIONS', 
+  individualContributions: individual_contributions
+})

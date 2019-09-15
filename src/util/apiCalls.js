@@ -64,3 +64,21 @@ export const fetchPACContributions = async (committee_id) => {
     throw err
   }
 }
+
+//can refactor these two fetches to use the same function
+
+export const fetchIndividualContributions = async (committee_id) => {
+
+  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=true&sort_hide_null=false`
+
+  try {
+    let individualContributions = await fetch(url);
+    let results = await individualContributions.json();
+    if (results.ok === false) {
+      throw new Error ('There was an error getting the PAC contributions')
+    }
+    return results.results
+  } catch (err) {
+    throw err
+  }
+}

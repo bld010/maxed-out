@@ -4,8 +4,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
 import { Route, NavLink } from 'react-router-dom';
-import { setPacContributions } from '../../actions';
-import { fetchPACContributions } from '../../util/apiCalls';
+import { setPacContributions, setIndividualContributions } from '../../actions';
+import { fetchPACContributions, fetchIndividualContributions } from '../../util/apiCalls';
 import SearchDisambiguation from '../../Components/SearchDisambiguation.js';
 
 
@@ -27,12 +27,17 @@ export class App extends Component {
     }
   }
 
+  getIndividualContributions = async (committee_id) => {
+    try {
+      let individualContributions = await fetchIndividualContributions(committee_id);
+      this.props.setIndividualContributions(individualContributions)
+    } catch (err) {
+      this.setState({ error: err.message })
+    }
+  }
+
 
   render() {
-
-    // let committeeList;
-
-    
 
     return (
       <div className="App">
@@ -50,6 +55,7 @@ export class App extends Component {
           <Route path='/candidate/:candidate_id/committee/:id' render={({ match }) => {
             this.props.setPacContributions([]);
             this.getPacContributions(match.params.id);
+            this.getIndividualContributions(match.params.id);
 
             return(
               <Committee committee_id={match.params.id}/>
@@ -68,6 +74,7 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
+  setIndividualContributions: individual_contributions => dispatch(setIndividualContributions(individual_contributions))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
