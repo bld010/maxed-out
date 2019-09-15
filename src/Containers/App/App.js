@@ -3,7 +3,7 @@ import './App.scss';
 import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import { setPacContributions } from '../../actions';
 import { fetchPACContributions } from '../../util/apiCalls';
 import SearchDisambiguation from '../../Components/SearchDisambiguation.js';
@@ -28,12 +28,6 @@ export class App extends Component {
   }
 
 
-  
-
-
-
-
-
   render() {
 
     // let committeeList;
@@ -43,6 +37,7 @@ export class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        <NavLink to='/'>Home</NavLink>
           <SearchForm />
             <Route path='/candidate/:candidate_id' render={({match}) => {
               return ( <SearchDisambiguation candidate_id={match.params.candidate_id} /> )

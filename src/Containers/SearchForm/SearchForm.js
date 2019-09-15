@@ -4,8 +4,8 @@ import { searchCandidateByName } from '../../util/apiCalls';
 import { connect } from 'react-redux';
 import { setCurrentCandidate, setPacContributions, setCurrentCommitteeId } from '../../actions';
 import PropTypes from 'prop-types';
-import { Link, Route } from 'react-router-dom';
-import SearchDisambiguation from '../../Components/SearchDisambiguation';
+import { Link } from 'react-router-dom';
+// import SearchDisambiguation from '../../Components/SearchDisambiguation';
 
 export class SearchForm extends Component {
 
