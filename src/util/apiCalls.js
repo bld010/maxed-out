@@ -51,7 +51,7 @@ export const searchCandidateById = async (candidate_id) => {
 
 export const fetchPACContributions = async (committee_id) => {
 
-  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=false&sort_hide_null=false`
+  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&min_amount=5000&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=false&sort_hide_null=false`
 
   try {
     let pacContributions = await fetch(url);
@@ -69,7 +69,7 @@ export const fetchPACContributions = async (committee_id) => {
 
 export const fetchIndividualContributions = async (committee_id) => {
 
-  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=true&sort_hide_null=false`
+  let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=${committee_id}&min_amount=2800&per_page=100&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=true&sort_hide_null=false`
 
   try {
     let individualContributions = await fetch(url);

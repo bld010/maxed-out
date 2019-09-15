@@ -121,7 +121,6 @@ export const mapDispatchToProps = dispatch => ({
   setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
   setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id))
-
 })
 
 export default connect(null, mapDispatchToProps)(SearchForm);

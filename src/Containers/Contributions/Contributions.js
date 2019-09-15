@@ -11,7 +11,6 @@ export class Contributions extends Component {
     }
   }
 
-
   generateContributionList = () => {
     if( this.props.type === 'PAC') {
       return this.props.pacContributions.map((contribution, index) => {
@@ -23,16 +22,15 @@ export class Contributions extends Component {
     if ( this.props.type === 'Individual') {
       return this.props.individualContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
-            {contribution.contributor_name}: $ {contribution.contribution_receipt_amount}
+            <h4>{contribution.contributor_name}: $ {contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
+            <p>Employer: {contribution.contributor_employer}</p>
+            <p>Location: {contribution.contributor_city}, {contribution.contributor_state}</p>
           </div>
       })
     }
   }
 
-
   componentDidMount = async () => {
-    
-    
   }
 
 
@@ -53,13 +51,13 @@ export const mapStateToProps = state => ({
   individualContributions: state.individualContributions
 })
 
-export const mapDispatchToProps = dispatch => ({
-  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
+// export const mapDispatchToProps = dispatch => ({
+//   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
 
-})
+// })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Contributions)
+export default connect(mapStateToProps)(Contributions)
 
 
 // propTYpes

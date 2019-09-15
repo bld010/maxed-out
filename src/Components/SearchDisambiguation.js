@@ -9,7 +9,6 @@ export class SearchDisambiguation extends Component {
 
 
   generateCommitteeList = () => {
-  
     return this.props.candidate.principal_committees.map((committee, index) => {
       const { name, state, committee_id, committee_type_full } = committee
       return (
@@ -22,22 +21,15 @@ export class SearchDisambiguation extends Component {
   }
 
   componentDidMount = async () => {
-
     try {
       let candidateSearchResults = await searchCandidateById(this.props.candidate_id)
       this.props.setCurrentCandidate(candidateSearchResults[0]);
-      
-      console.log(this.props)
-
     } catch (err) {
       console.error(err.message)
     }
-    
-    
   }
   
   render() {
-    console.log(this.props)
     let committeeList; 
 
     if (this.props.candidate) {
@@ -45,17 +37,13 @@ export class SearchDisambiguation extends Component {
       }
 
     return(
-      <>
-      {/* <Route path='/candidate/:candidate_id/committee/:committee_id' render={} */}
-      <p>this is sa test</p>
+      <div className="SearchDisambiguation">
       {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-      {this.props.candidate && <><div>Select a Campaign Committee</div>{committeeList}</> }
-      </>
+      {this.props.candidate && <><div>Select a Campaign Committee</div> {committeeList}</> }
+      </div>
     )
   }
 }
-
-
 
 export const mapStateToProps = state => ({
   candidate: state.candidate,
