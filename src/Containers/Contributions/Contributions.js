@@ -20,6 +20,13 @@ export class Contributions extends Component {
         </div>
       })
     }
+    if ( this.props.type === 'Individual') {
+      return this.props.individualContributions.map((contribution, index) => {
+        return <div className="contribution" key={index}>
+            {contribution.contributor_name}: $ {contribution.contribution_receipt_amount}
+          </div>
+      })
+    }
   }
 
 
@@ -42,7 +49,8 @@ export class Contributions extends Component {
 export const mapStateToProps = state => ({
   candidate: state.candidate,
   committee_id: state.committee_id,
-  pacContributions: state.pacContributions
+  pacContributions: state.pacContributions,
+  individualContributions: state.individualContributions
 })
 
 export const mapDispatchToProps = dispatch => ({

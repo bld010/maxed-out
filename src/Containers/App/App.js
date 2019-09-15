@@ -56,10 +56,7 @@ export class App extends Component {
             this.props.setPacContributions([]);
             this.getPacContributions(match.params.id);
             this.getIndividualContributions(match.params.id);
-
-            return(
-              <Committee committee_id={match.params.id}/>
-            )
+            return( <Committee committee_id={match.params.id}/> )
           }} />
         </main>
       </div>

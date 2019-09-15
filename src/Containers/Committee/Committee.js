@@ -17,11 +17,9 @@ class Committee extends Component {
     }
   }
   
-  
+
   componentDidMount = async () => {
-    
     this.props.setCurrentCommitteeId(this.props.committee_id);
-    
     try {
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
       this.setState({ committee: committeeSearchResults})
@@ -32,22 +30,16 @@ class Committee extends Component {
         error: err.message
       })
     }
-
   }
 
   render() {
-    
     return(
 
-      
         <section className="Committee">
           {this.state.committee_id && <p>{this.state.committee.committee_id}</p>}
           {this.props.candidate && <p>{this.props.candidate.name}</p>}
-
           <div className="contributions">
-
-            <Contributions type="PAC" />
-            {/* Change to Individuals */}
+            <Contributions type="Individual" />
             <Contributions type="PAC" />
 
           </div>
