@@ -60,7 +60,7 @@ export class App extends Component {
           </section>
           <section className="display"> 
             <Route path='/candidate/:candidate_id/committee/:committee_id' render={({match}) => {
-              this.setCurrentCommitteeId(match.params.committee_id)
+              
               return( <Committee committee_id={match.params.committee_id} /> )
             }} />
           <Route exact path='/' render={() => {
