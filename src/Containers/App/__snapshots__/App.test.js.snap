@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match the snapshot with correct data passed through 1`] = `
+<div
+  className="App"
+>
+  <header>
+    <h1>
+      Maxed-Out
+    </h1>
+    <NavLink
+      className="nav"
+      to="/"
+    >
+      Home
+    </NavLink>
+  </header>
+  <main>
+    <section
+      className="search-and-disambiguation"
+    >
+      <h2>
+        Find Your Candidate
+      </h2>
+      <Connect(SearchForm) />
+      <Route
+        path="/candidate/:candidate_id"
+        render={[Function]}
+      />
+    </section>
+    <section
+      className="display"
+    >
+      <Route
+        path="/candidate/:candidate_id/committee/:committee_id"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        path="/"
+        render={[Function]}
+      />
+    </section>
+  </main>
+</div>
+`;

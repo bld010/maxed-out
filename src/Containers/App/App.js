@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
 import { Route, NavLink } from 'react-router-dom';
 import { setPacContributions, setIndividualContributions } from '../../actions';
-import { fetchPACContributions, fetchIndividualContributions } from '../../util/apiCalls';
+import { fetchPACContributions, fetchIndividualContributions, searchCommitteeById, searchCandidateById } from '../../util/apiCalls';
 import SearchDisambiguation from '../SearchDisambiguation/SearchDisambiguation.js';
 
 
@@ -13,13 +13,45 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
+    // this.state= {
+    //   location: this.props.history.location.pathname
+    // }
     this.getPacContributions = this.getPacContributions.bind(this);
+  }
+
+  componentDidUpdate = async (prevProps) => {
+
+    // if (this.state.location !== this.props.history.location.pathname) {
+    //   this.setState({location: this.props.history.location.pathname})
+    // }
+    
+    // try {
+    //   let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
+    //   this.setState({ committee: committeeSearchResults})
+
+    //   let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
+    //   this.props.setCurrentCandidate(candidate[0])
+
+    //   let individualContributions = await fetchIndividualContributions(this.props.committee_id);
+    //   this.props.setIndividualContributions(individualContributions)
+
+    //   let pacContributions = await fetchPACContributions(this.props.committee_id);
+    //   this.props.setPacContributions(pacContributions);
+
+    //   this.setState({ isLoading: false})
+    // } catch (err) {
+    //   this.setState({
+    //     error: err.message,
+    //     isLoading: false
+    //   })
+    // }
   }
 
   componentDidMount = async () => {
     if (this.props.committee_id) {
-      this.getPacContributions(this.props.committee_id)
-      this.getIndividualContributions(this.props.params.id);
+      await this.getPacContributions(this.props.committee_id)
+      await this.getIndividualContributions(this.props.committee_id);
+      // could this be called with this.props.committee_id?
     }
   };
 
@@ -59,8 +91,9 @@ export class App extends Component {
             }} />
           </section>
           <section className="display"> 
-            <Route path='/candidate/:candidate_id/committee/:id' render={({ match }) => {
-              return( <Committee committee_id={match.params.id}/> )
+            <Route path='/candidate/:candidate_id/committee/:committee_id' render={(props) => {
+              console.log('lbah')
+              return( <Committee matchPath={props.match.url} committee_id={props.match.params.committee_id} /> )
             }} />
           <Route exact path='/' render={() => {
             return(

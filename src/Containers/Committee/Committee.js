@@ -20,13 +20,14 @@ class Committee extends Component {
       candidate: null,
       error: '',
       isLoading: false,
+      key: this.props.matchPath
     }
   }
 
 
   componentDidMount = async () => {
     this.setState({ isLoading: true} )
-    this.props.setCurrentCommitteeId(this.props.committee_id);
+    
     
     
     try {
@@ -37,10 +38,8 @@ class Committee extends Component {
       this.props.setCurrentCandidate(candidate[0])
 
       let individualContributions = await fetchIndividualContributions(this.props.committee_id);
-      console.log(individualContributions)
       this.props.setIndividualContributions(individualContributions)
 
-      
       let pacContributions = await fetchPACContributions(this.props.committee_id);
       this.props.setPacContributions(pacContributions);
 
@@ -54,12 +53,12 @@ class Committee extends Component {
   }
 
   render() {
-      console.log('rerendering committee')
+      // if (this.props.committe_id !== this.props.)
     return(
 
         <section className="Committee">
           <div className="name-and-info">
-            {this.props.candidate && this.state.committee && <>
+            {!this.state.isLoading && this.props.candidate && this.state.committee && <>
               <h3>{this.props.candidate.name}</h3>
               <p>{this.state.committee[0].name}</p>
               </>}

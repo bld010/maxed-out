@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme": "^3.10.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -32,8 +33,16 @@
     ]
   },
   "devDependencies": {
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
+    "install": "^0.13.0",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "redux-devtools-extension": "^2.13.8"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }
