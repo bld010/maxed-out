@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import './Contributions.scss';
-import { setPacContributions } from '../../actions/index'
 
 export class Contributions extends Component {
   constructor(props) {
@@ -35,7 +34,6 @@ export class Contributions extends Component {
             <h4>{contribution.contributor_name}: $ {contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
             <p>Employer: {contribution.contributor_employer} | Location: {contribution.contributor_city}, {contribution.contributor_state}
             </p>
-           
           </div>
       })
     }
@@ -45,7 +43,6 @@ export class Contributions extends Component {
     return(
       <section className="Contributions">
         {this.generateContributionList(this.props.type)}
-      
       </section>
     )
   }
@@ -62,6 +59,5 @@ export default connect(mapStateToProps)(Contributions)
 
 
 // propTYpes
-// committee_id, type, candidate, setPacCOntributions
 
 

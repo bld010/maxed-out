@@ -16,7 +16,6 @@ export class SearchForm extends Component {
       error: '',
       multipleEntries: false,
       results: [],
-
     }
   }
 
@@ -28,18 +27,17 @@ export class SearchForm extends Component {
 
   clearInput = () => {
     this.setState({ searchTerm: ''});
-    
   }
 
-  checkResultsBeforeUpdatingStore = (results) => {
+  checkResultsBeforeUpdatingStore = async (results) => {
     if (results.length > 1) {
       this.setState({ 
         multipleEntries: true,
         results: results
       })
-    } else if (results[0].name) {
-      this.props.setCurrentCandidate(results[0]);
-      this.setState({ results: results });
+    } else if (results[0].name !== undefined) {
+      await this.props.setCurrentCandidate(results[0]);
+      this.setState({ results: results, multipleEntries: false });
       this.resetError()
     }
   }
@@ -49,7 +47,7 @@ export class SearchForm extends Component {
     this.setState({ 
       results: [],
       multipleEntries: false
-     })
+    })
   }
 
   generateCandidateDisambiguationList = (results) => {
@@ -68,7 +66,6 @@ export class SearchForm extends Component {
           </ul>
           </>
       )
-      
     })
   }
 
@@ -99,7 +96,7 @@ export class SearchForm extends Component {
   render() {
     let candidateDisambiguationList;
 
-    if (this.state.results.length > 0 ) {
+    if (this.state.results.length > 1 ) {
       candidateDisambiguationList = this.generateCandidateDisambiguationList(this.state.results)
     }
 

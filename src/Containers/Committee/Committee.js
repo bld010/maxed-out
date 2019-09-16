@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentCandidate, setCurrentCommitteeId, setPacContributions, setIndividualContributions } from '../../actions/index';
 import Contributions from '../Contributions/Contributions';
+import './Committee.scss';
 import { 
-  searchCommitteeById, 
-  searchCandidateById, 
+  setCurrentCandidate, 
+  setCurrentCommitteeId, 
+  setPacContributions, 
+  setIndividualContributions 
+} from '../../actions/index';
+import {  
   fetchPACContributions, 
+  searchCommitteeById,
+  searchCandidateById,
   fetchIndividualContributions 
 } from '../../util/apiCalls';
-import './Committee.scss';
 
 
 class Committee extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -25,13 +29,12 @@ class Committee extends Component {
     }
   }
 
-
   componentDidUpdate = async (prevProps) => {
 
     if (prevProps.committee_id !== this.props.committee_id) {
+      this.setState({isLoading: true})
       await this.props.setCurrentCommitteeId(this.props.committee_id)
-      console.log('firing', this.props)
-    
+
     try {
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
       this.setState({ committee: committeeSearchResults})
@@ -47,7 +50,6 @@ class Committee extends Component {
 
       this.setState({ isLoading: false})
       } catch (err) {
-        console.log(err.message)
         this.setState({
           error: err.message,
           isLoading: false
@@ -58,66 +60,47 @@ class Committee extends Component {
   
 
   componentDidMount = async () => {
-
-    
-      // console.log(window.location.pathname.split('/')[4])
-
-      //this works to grab the current committee id when going directly
-      //to a committee route, but there's some infinite loop happening.
   
-      this.setState({isLoading: true})
-    
-     
-
-      try {
-        if (this.props.committee_id === null) {
-          let committee_id = window.location.pathname.split('/')[4]
-          await this.props.setCurrentCommitteeId(committee_id)
-        }
-
-        let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
-        this.setState({ committee: committeeSearchResults}, () => {console.log(this.state)})
-        // console.log(this.state)
-      
-        let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
-        this.props.setCurrentCandidate(candidate[0])
-    
-        let individualContributions = await fetchIndividualContributions(this.props.committee_id);
-        this.props.setIndividualContributions(individualContributions)
-   
-        let pacContributions = await fetchPACContributions(this.props.committee_id);
-        this.props.setPacContributions(pacContributions);
-        this.setState({isLoading: false})
-      } catch (err) { this.setState({error: err.message, isLoading:false}) }
-
+    this.setState({isLoading: true})
   
-        
-      
-      
+    try {
+      if (this.props.committee_id === null) {
+        let committee_id = window.location.pathname.split('/')[4]
+        await this.props.setCurrentCommitteeId(committee_id)
+      }
+
+      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
+      this.setState({ committee: committeeSearchResults})
     
-    
+      let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
+      this.props.setCurrentCandidate(candidate[0])
+  
+      let individualContributions = await fetchIndividualContributions(this.props.committee_id);
+      this.props.setIndividualContributions(individualContributions)
+  
+      let pacContributions = await fetchPACContributions(this.props.committee_id);
+      this.props.setPacContributions(pacContributions);
+      this.setState({isLoading: false})
+    } catch (err) { this.setState({error: err.message, isLoading:false}) }
   }
 
   render() {
     return(
-
-        <section className="Committee">
-          <div className="name-and-info">
-
-            {!this.state.isLoading && this.props.candidate && this.state.committee && <>
-              <h3>{this.props.candidate.name}</h3>
-              <p>{this.state.committee[0].name}</p>
-              </>}
-            </div>
-            
-          <div className="contributions-container">
+      <section className="Committee">
+        <div className="name-and-info">
+          {this.state.isLoading && <h2>{this.state.error}</h2>}
+          {!this.state.isLoading && this.props.candidate && this.state.committee && <>
+            <h3>{this.props.candidate.name}</h3>
+            <p>{this.state.committee[0].name}</p>
+            </>}
+        </div>
+        <div className="contributions-container">
           {this.state.isLoading && <h2>Loading</h2>}
-            {!this.state.isLoading && <Contributions type="Individual" /> }
-            {!this.state.isLoading && <Contributions type="PAC" /> }
-          </div>
-        </section>
+          {!this.state.isLoading && <Contributions type="Individual" /> }
+          {!this.state.isLoading && <Contributions type="PAC" /> }
+        </div>
+      </section>
     )
-
   }
 }
 

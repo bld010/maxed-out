@@ -38,10 +38,16 @@ export class SearchDisambiguation extends Component {
         committeeList = this.generateCommitteeList()
       }
 
+    if (committeeList !== undefined && committeeList.length === 0) {
+      return (
+        <h2>No campaign committees found for {this.props.candidate.name}.</h2>
+      )
+    }
+
     return(
       <div className="SearchDisambiguation">
         {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-        {this.props.candidate && <><div>Select a Campaign Committee</div> {committeeList}</> }
+        {this.props.candidate && <><div>Select a Campaign Committee: </div> {committeeList}</> }
       </div>
     )
   }
