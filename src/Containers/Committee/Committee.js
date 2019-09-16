@@ -60,21 +60,24 @@ class Committee extends Component {
   componentDidMount = async () => {
 
     
-      console.log(window.location.pathname.split('/')[4])
+      // console.log(window.location.pathname.split('/')[4])
 
       //this works to grab the current committee id when going directly
       //to a committee route, but there's some infinite loop happening.
   
       this.setState({isLoading: true})
-
-      if (!this.props.committee_id) {
-        this.props.setCurrentCommitteeId(window.location.pathname.split('/')[4])
-      }
+    
+     
 
       try {
+        if (this.props.committee_id === null) {
+          let committee_id = window.location.pathname.split('/')[4]
+          await this.props.setCurrentCommitteeId(committee_id)
+        }
+
         let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
-        this.setState({ committee: committeeSearchResults})
-        console.log(this.state)
+        this.setState({ committee: committeeSearchResults}, () => {console.log(this.state)})
+        // console.log(this.state)
       
         let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
         this.props.setCurrentCandidate(candidate[0])
@@ -84,6 +87,7 @@ class Committee extends Component {
    
         let pacContributions = await fetchPACContributions(this.props.committee_id);
         this.props.setPacContributions(pacContributions);
+        this.setState({isLoading: false})
       } catch (err) { this.setState({error: err.message, isLoading:false}) }
 
   
@@ -99,10 +103,10 @@ class Committee extends Component {
 
         <section className="Committee">
           <div className="name-and-info">
-            {/* {!this.state.isLoading && this.props.candidate && this.state.committee && <>
+            {!this.state.isLoading && this.props.candidate && this.state.committee && <>
               <h3>{this.props.candidate.name}</h3>
               <p>{this.state.committee[0].name}</p>
-              </>} */}
+              </>}
             </div>
             
           <div className="contributions-container">
