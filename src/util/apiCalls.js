@@ -18,7 +18,7 @@ export const searchCandidateByName = async (searchTerm) => {
 
 export const searchCommitteeById = async (committee_id) => {
   let url = `https://api.open.fec.gov/v1/committee/${committee_id}/?sort=name&sort_null_only=false&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=100&sort_nulls_last=false&sort_hide_null=true&page=1`
-
+  console.log(committee_id)
   try {
     let committeeSearchResult = await fetch(url);
     let results = await committeeSearchResult.json();

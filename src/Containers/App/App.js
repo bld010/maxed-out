@@ -91,15 +91,9 @@ export class App extends Component {
             }} />
           </section>
           <section className="display"> 
-<<<<<<< HEAD
-            <Route path='/candidate/:candidate_id/committee/:committee_id' render={(props) => {
-              console.log('lbah')
-              return( <Committee matchPath={props.match.url} committee_id={props.match.params.committee_id} /> )
-=======
+
             <Route path='/candidate/:candidate_id/committee/:committee_id' render={({match}) => {
-              
-              return( <Committee committee_id={match.params.committee_id} /> )
->>>>>>> debugging
+              return( <Committee idFromMatch={match.params.committee_id} /> )
             }} />
           <Route exact path='/' render={() => {
             return(
