@@ -88,6 +88,13 @@ export class App extends Component {
                   </li>
                 </ul>
                 </div>
+                <div>
+                <p>Note: Individuals are limited to $2,800 per campaign, while PACs are limited to $5000 per campaign. 
+                  Donations from local/district/state/national party committees are subject to higher limits. 
+                  <a href="https://www.fec.gov/introduction-campaign-finance/understanding-ways-support-federal-candidates/"
+                    target="_blank" rel="noopener noreferrer">
+                  (Read more about federal campaign finance law on the Federal Election Commission's Website)</a></p>
+              </div>
                 <div className="faq">
                   <h3>Did you know?</h3>
                   <p>Not all election spending is targeted to a specific candidate's campaign. </p>

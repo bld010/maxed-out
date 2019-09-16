@@ -17,3 +17,4 @@ export const setIndividualContributions = individual_contributions => ({
   type: 'SET_INDIVIDUAL_CONTRIBUTIONS', 
   individualContributions: individual_contributions
 })
+

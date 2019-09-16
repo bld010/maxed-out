@@ -2,7 +2,7 @@
   
 
   & header {
-    background: blanchedalmond;
+    // background: blanchedalmond;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -19,21 +19,22 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    background-color: #5F4B8B;
+    background-color: rgb(98, 84, 129);
     padding: 50px;
     height: 90vh;
     border-radius: 8px 8px 0 0 ;
 
     & .search-and-disambiguation {
       border: 1px solid black;
-      margin-right: 50px;
+      margin-right: 40px;
       border-radius: 8px; 
-      padding: 20px;
-      min-width: 400px;
+      padding: 25px;
+      min-width: 20vw;
       background: white;
       max-height: 500px;
       overflow: scroll;
-      width: 20vw;
+      font-size: 12px;
+      filter: drop-shadow(0 0 8px #333);
     }
 
     & .display {
@@ -42,6 +43,7 @@
       padding: 20px;
       min-width: 70vw;
       width: auto;
+      filter: drop-shadow(0 0 8px #333);
     }
   }
 

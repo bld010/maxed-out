@@ -55,15 +55,18 @@ export class SearchForm extends Component {
   generateCandidateDisambiguationList = (results) => {
     return results.map(campaign => {
       return (
-
-        <Link to={`/candidate/${campaign.candidate_id}`}>
-          <p className="candidate-disambiguation" 
+        <>
+        <Link to={`/candidate/${campaign.candidate_id}`}
+          className="candidate-disambiguation" 
           tabIndex={0} 
           key={campaign.candidate_id} 
           onClick={() => {this.handleCandidateDisambiguationSelection(campaign)}}>
-          {campaign.name} ({campaign.state} {campaign.office_full})
-          </p>
+          <p className="candidate-disambiguation">{campaign.name}</p> 
         </Link>
+          <ul>
+            <li>{campaign.state} {campaign.office_full}</li>
+          </ul>
+          </>
       )
       
     })
