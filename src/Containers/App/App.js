@@ -62,22 +62,11 @@ export class App extends Component {
               return( <Committee idFromMatch={match.params.committee_id} /> )
             }} />
             <Route exact path='/' render={() => {
-              return(
-                <>
-                  <div>
-                    <h2>Is my favored presidential candidate accepting donations from organizations that align with my views?</h2>
-                    <h2>Is my representative beholden to a certain industry? </h2>
-                    <h2>What types of individuals are supporting my senator?</h2>
-                    <p>Maxed-Out's mission is to get voters thinking about the money spent on
-                      federal political campaigns. You'll be able to see individuals and organizations
-                      that make the maximum allowable donations to a given campaign according to federal law. 
-                    </p>
-                  </div>
+              return( 
                   <div className="howTo">
-                  <HowTo />
+                    <HowTo />
                   </div>
-              </>
-            )
+              )
             }} />
           </section>
           </main>

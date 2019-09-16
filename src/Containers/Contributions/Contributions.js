@@ -18,7 +18,7 @@ export class Contributions extends Component {
       return <h4>No {this.props.type} contributions found.</h4>
     }
 
-    if( this.props.type === 'PAC' && this.props.pacContributions.length > 0) {
+    if(this.props.type === 'PAC' && this.props.pacContributions.length > 0) {
       return this.props.pacContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
           <h4>{contribution.contributor_name}: ${contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>

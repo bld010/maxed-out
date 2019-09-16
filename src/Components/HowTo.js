@@ -4,9 +4,18 @@ const HowTo = () => {
   return(
     <>
     <div>
+      <h2>Is my favored presidential candidate accepting donations from organizations that align with my views?</h2>
+      <h2>Is my representative beholden to a certain industry? </h2>
+      <h2>What types of individuals are supporting my senator?</h2>
+      <p>Maxed-Out's mission is to get voters thinking about the money spent on
+        federal political campaigns. You'll be able to see individuals and organizations
+        that make the maximum allowable donations to a given campaign according to federal law. 
+      </p>
+    </div>
+    <div>
       <h3>Here's how:</h3>
       <ul>
-        <li>Search for a candidate above.</li>
+        <li>Search for a candidate by name.</li>
         <li>If a candidate has run for more than one federal office, select which
           campaign you're interested in. </li> 
         <li>Campaign spending is done through campaign committees that are direclty associated

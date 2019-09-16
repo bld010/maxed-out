@@ -1,13 +1,13 @@
 .Contributions {
   width: 100%;
   background: white;
-  // min-height: 500px;
+  min-height: 200px;
   overflow: scroll;
   filter: drop-shadow(0 0 8px #333);
   border-radius: 8px;
   margin: 10px;
-  height: 90%;
-  // border: 1px solid black;
+  max-height: 90%;
+  padding: 20px;
 
   & .contribution {
     margin: 10px;
