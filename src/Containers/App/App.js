@@ -4,8 +4,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import { connect } from 'react-redux';
 import Committee from '../Committee/Committee';
 import { Route, NavLink } from 'react-router-dom';
-import { setPacContributions, setIndividualContributions } from '../../actions';
-import { fetchPACContributions, fetchIndividualContributions } from '../../util/apiCalls';
+import { setPacContributions, setIndividualContributions, setCurrentCommitteeId } from '../../actions';
+import { fetchPACContributions, fetchIndividualContributions, searchCommitteeById, searchCandidateById } from '../../util/apiCalls';
 import SearchDisambiguation from '../SearchDisambiguation/SearchDisambiguation.js';
 
 
@@ -59,8 +59,9 @@ export class App extends Component {
             }} />
           </section>
           <section className="display"> 
-            <Route path='/candidate/:candidate_id/committee/:id' render={({ match }) => {
-              return( <Committee committee_id={match.params.id}/> )
+            <Route path='/candidate/:candidate_id/committee/:committee_id' render={({match}) => {
+              this.setCurrentCommitteeId(match.params.committee_id)
+              return( <Committee committee_id={match.params.committee_id} /> )
             }} />
           <Route exact path='/' render={() => {
             return(
@@ -130,6 +131,7 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
+  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id)),
   setIndividualContributions: individual_contributions => dispatch(setIndividualContributions(individual_contributions))
 })
 
