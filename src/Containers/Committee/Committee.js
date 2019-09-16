@@ -30,38 +30,46 @@ class Committee extends Component {
 
     //this works on clicking a link ... but why arent these fetches happening when you navigate directly to al ink?    
 
-    if (this.props.committee_id !== this.state.committee_id) {
+    // if (!this.props.committee_id) {
       
     
-    try {
-      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
-      this.setState({ committee: committeeSearchResults})
+    // try {
+    //   let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
+    //   this.setState({ committee: committeeSearchResults})
 
-      let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
-      this.props.setCurrentCandidate(candidate[0])
+    //   let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
+    //   this.props.setCurrentCandidate(candidate[0])
 
-      let individualContributions = await fetchIndividualContributions(this.props.committee_id);
-      this.props.setIndividualContributions(individualContributions)
+    //   let individualContributions = await fetchIndividualContributions(this.props.committee_id);
+    //   this.props.setIndividualContributions(individualContributions)
 
-      let pacContributions = await fetchPACContributions(this.props.committee_id);
-      this.props.setPacContributions(pacContributions);
+    //   let pacContributions = await fetchPACContributions(this.props.committee_id);
+    //   this.props.setPacContributions(pacContributions);
 
-      this.setState({ isLoading: false})
-    } catch (err) {
-      console.log(err.message)
-      this.setState({
-        error: err.message,
-        isLoading: false
-      })
-    }
-    }
+    //   this.setState({ isLoading: false})
+    //   } catch (err) {
+    //     console.log(err.message)
+    //     this.setState({
+    //       error: err.message,
+    //       isLoading: false
+    //     })
+    //   }
+    // }
   }
 
   componentDidMount = async () => {
+
     
+      console.log(window.location.pathname.split('/')[4])
+
+      //this works to grab the current committee id when going directly
+      //to a committee route, but there's some infinite loop happening.
   
       this.setState({isLoading: true})
-      this.setState({committee_id: this.props.committee_id})
+
+      if (!this.props.committee_id) {
+        this.props.setCurrentCommitteeId(window.location.pathname.split('/')[4])
+      }
 
       try {
         let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
@@ -91,10 +99,14 @@ class Committee extends Component {
 
         <section className="Committee">
           <div className="name-and-info">
+<<<<<<< HEAD
             {!this.state.isLoading && this.props.candidate && this.state.committee && <>
+=======
+            {/* {!this.state.isLoading && this.props.candidate && this.state.committee && <>
+>>>>>>> debugging
               <h3>{this.props.candidate.name}</h3>
               <p>{this.state.committee[0].name}</p>
-              </>}
+              </>} */}
             </div>
             
           <div className="contributions-container">
