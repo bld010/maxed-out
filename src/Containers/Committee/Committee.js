@@ -21,41 +21,41 @@ class Committee extends Component {
       error: '',
       isLoading: false,
       key: this.props.matchPath,
-      committee_id: this.props.committee_id
+      committee_id: this.props.committee_id || this.props.idFromMatch
     }
   }
 
 
-  componentDidUpdate = async () => {
+  componentDidUpdate = async (prevProps) => {
 
-    //this works on clicking a link ... but why arent these fetches happening when you navigate directly to al ink?    
-
-    // if (!this.props.committee_id) {
-      
+    if (prevProps.committee_id !== this.props.committee_id) {
+      await this.props.setCurrentCommitteeId(this.props.committee_id)
+      console.log('firing', this.props)
     
-    // try {
-    //   let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
-    //   this.setState({ committee: committeeSearchResults})
+    try {
+      let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
+      this.setState({ committee: committeeSearchResults})
 
-    //   let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
-    //   this.props.setCurrentCandidate(candidate[0])
+      let candidate = await searchCandidateById(this.state.committee[0].candidate_ids[0])
+      this.props.setCurrentCandidate(candidate[0])
 
-    //   let individualContributions = await fetchIndividualContributions(this.props.committee_id);
-    //   this.props.setIndividualContributions(individualContributions)
+      let individualContributions = await fetchIndividualContributions(this.props.committee_id);
+      this.props.setIndividualContributions(individualContributions)
 
-    //   let pacContributions = await fetchPACContributions(this.props.committee_id);
-    //   this.props.setPacContributions(pacContributions);
+      let pacContributions = await fetchPACContributions(this.props.committee_id);
+      this.props.setPacContributions(pacContributions);
 
-    //   this.setState({ isLoading: false})
-    //   } catch (err) {
-    //     console.log(err.message)
-    //     this.setState({
-    //       error: err.message,
-    //       isLoading: false
-    //     })
-    //   }
-    // }
+      this.setState({ isLoading: false})
+      } catch (err) {
+        console.log(err.message)
+        this.setState({
+          error: err.message,
+          isLoading: false
+        })
+      }
+    }
   }
+  
 
   componentDidMount = async () => {
 
