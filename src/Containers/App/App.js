@@ -46,14 +46,14 @@ export class App extends Component {
     return (
       <div className="App">
         <header>
-          <h1>Maxed-Out</h1>
+          <h1>Maxed</h1>
           <NavLink className="nav" to='/'>Home</NavLink>
         </header>
         <main>
           <section className="search-and-disambiguation">
-            <h2>Find Your Candidate</h2>
+            <h2>Find A Candidate</h2>
             <SearchForm />
-            <Route path='/candidate/:candidate_id' render={({match}) => {
+            <Route exact path='/candidate/:candidate_id' render={({match}) => {
               return ( <SearchDisambiguation candidate_id={match.params.candidate_id} /> )
             }} />
           </section>

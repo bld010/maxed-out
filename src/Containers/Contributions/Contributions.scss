@@ -8,12 +8,35 @@
   margin: 10px;
   max-height: 90%;
   padding: 20px;
+  will-change: transform;
+
+
+  & h3 {
+    font-size:18;
+    margin: 0 0 10px 5px;
+    border-bottom: 1px solid black;
+    position: relative;
+    z-index: 1;
+    background: white;
+    color: rgb(98, 84, 129)
+  }
 
   & .contribution {
-    margin: 10px;
+    margin: 5px;
     font-size: 14px;
     text-align: left;
     padding: 5px;
     border-bottom: 1px solid black;
+    text-transform: capitalize;
+    
+    
+    & h4 {
+      font-size: 16px;
+      margin: 5px 0 0 0;
+    }
+
+    & p {
+      margin: 4px 0 4px 0;
+    }
   }
 }

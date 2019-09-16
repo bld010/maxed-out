@@ -15,9 +15,9 @@ export class SearchDisambiguation extends Component {
         <Link 
           key={index} 
           to={`/candidate/${this.props.candidate.candidate_id}/committee/${committee_id}`}>
-          <article onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="committee-disambiguation">
-            <p>{name} ({state} {committee_type_full})</p>
-          </article>
+          <button onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="committee-disambiguation">
+            {name} ({state} {committee_type_full})
+          </button>
         </Link>
     )})
   }
@@ -47,7 +47,7 @@ export class SearchDisambiguation extends Component {
     return(
       <div className="SearchDisambiguation">
         {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-        {this.props.candidate && <><div>Select a Campaign Committee: </div> {committeeList}</> }
+        {this.props.candidate && <><p>Select a Campaign Committee: </p> {committeeList}</> }
       </div>
     )
   }

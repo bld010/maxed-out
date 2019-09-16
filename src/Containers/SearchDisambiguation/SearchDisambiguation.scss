@@ -1,8 +1,16 @@
 .SearchDisambiguation {
-
-  & .committee-disambiguation{
-    font-size: 14px;
-    text-decoration: none;
-    color: black;
-  }
+ & p {
+   font-size: 18px;
+   padding-left: 8px;
+ }
+}
+.committee-disambiguation{
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  height: auto;
+  width: 90%;
+  padding: 10px;
+  background:  rgb(98, 84, 129);
+  margin: 15px;
 }

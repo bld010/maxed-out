@@ -33,9 +33,10 @@ class Committee extends Component {
 
     if (prevProps.committee_id !== this.props.committee_id) {
       this.setState({isLoading: true})
-      await this.props.setCurrentCommitteeId(this.props.committee_id)
 
-    try {
+      
+      try {
+      await this.props.setCurrentCommitteeId(this.props.committee_id)
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
       this.setState({ committee: committeeSearchResults})
 
@@ -88,16 +89,15 @@ class Committee extends Component {
     return(
       <section className="Committee">
         <div className="name-and-info">
-          {this.state.isLoading && <h2>{this.state.error}</h2>}
-          {!this.state.isLoading && this.props.candidate && this.state.committee && <>
-            <h3>{this.props.candidate.name}</h3>
-            <p>{this.state.committee[0].name}</p>
+          {!this.state.isLoading && <h2>{this.state.error}</h2>}
+          {!this.state.isLoading && this.props.candidate && this.state.committee !== null && <>
+            <h3>{this.props.candidate.name.toLowerCase().split(',').reverse().join(' ')}: {this.state.committee[0].name.toLowerCase()}</h3>
             </>}
         </div>
         <div className="contributions-container">
           {this.state.isLoading && <h2>Loading</h2>}
-          {!this.state.isLoading && <Contributions type="Individual" /> }
-          {!this.state.isLoading && <Contributions type="PAC" /> }
+          {!this.state.isLoading && this.props.committee_id && <Contributions type="Individual" /> }
+          {!this.state.isLoading && this.props.committee_id && <Contributions type="PAC" /> }
         </div>
       </section>
     )

@@ -20,7 +20,13 @@
 
   & .candidate-disambiguation {
     cursor: pointer;
-    text-transform: capitalize;
-    color: darkblue;
+    color: white;
+    font-size: 18px;
+    height: auto;
+    width: 90%;
+    padding: 10px;
+    // border: 2px solid  rgb(98, 84, 129);
+    background:  rgb(98, 84, 129);
+    margin: 15px;
   }
 }

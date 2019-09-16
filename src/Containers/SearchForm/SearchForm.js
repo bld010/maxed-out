@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { setCurrentCandidate, setPacContributions, setCurrentCommitteeId, setIndividualContributions } from '../../actions';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import SearchDisambiguation from '../../Components/SearchDisambiguation';
 
 export class SearchForm extends Component {
 
@@ -35,8 +34,10 @@ export class SearchForm extends Component {
         multipleEntries: true,
         results: results
       })
-    } else if (results[0].name !== undefined) {
+    } else {
       await this.props.setCurrentCandidate(results[0]);
+      await this.props.setPacContributions([]);
+      await this.props.setIndividualContributions([]);
       this.setState({ results: results, multipleEntries: false });
       this.resetError()
     }
@@ -53,23 +54,14 @@ export class SearchForm extends Component {
   generateCandidateDisambiguationList = (results) => {
     return results.map(campaign => {
       return (
-        <>
         <Link to={`/candidate/${campaign.candidate_id}`}
-          className="candidate-disambiguation" 
           tabIndex={0} 
           key={campaign.candidate_id} 
           onClick={() => {this.handleCandidateDisambiguationSelection(campaign)}}>
-          <p className="candidate-disambiguation">{campaign.name}</p> 
+          <button className="candidate-disambiguation">{campaign.name} ({campaign.state} {campaign.office_full})</button> 
         </Link>
-          <ul>
-            <li>{campaign.state} {campaign.office_full}</li>
-          </ul>
-          </>
       )
     })
-  }
-
-  componentDidMount = () => {
   }
 
   resetError = () => {
@@ -78,10 +70,6 @@ export class SearchForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.props.setCurrentCandidate(null);
-    this.props.setPacContributions([]);
-    this.props.setIndividualContributions([]);
-    this.props.setCurrentCommitteeId(null);
     try {
       let results = await searchCandidateByName(this.state.searchTerm);
       this.checkResultsBeforeUpdatingStore(results);
@@ -129,6 +117,3 @@ export default connect(null, mapDispatchToProps)(SearchForm);
 SearchForm.propTypes = {
   setCurrentCandidate: PropTypes.func.isRequired
 }
-
-// update store with cleaned candidate object
-// update store with candidate_id

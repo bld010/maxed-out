@@ -12,16 +12,16 @@ export class Contributions extends Component {
 
   generateContributionList = () => {
     if (this.props.type === 'PAC' && this.props.pacContributions.length === 0 && this.props.candidate !== null) {
-      return <h4>No {this.props.type} contributions found.</h4>
+      return <h4>No {this.props.type} contributions found for the 2020 election cycle.</h4>
     }
     if (this.props.type === 'Individual' && this.props.individualContributions.length === 0 && this.props.candidate !== null) {
-      return <h4>No {this.props.type} contributions found.</h4>
+      return <h4>No {this.props.type} contributions found  for the 2020 election cycle.</h4>
     }
 
     if(this.props.type === 'PAC' && this.props.pacContributions.length > 0) {
       return this.props.pacContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
-          <h4>{contribution.contributor_name}: ${contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
+          <h4>{contribution.contributor_name.toLowerCase()}: ${contribution.contribution_receipt_amount.toLocaleString()} ({contribution.two_year_transaction_period})</h4>
           <p>Type: {contribution.line_number_label}</p>
           <p>Memo: {contribution.memo_text}</p>
         </div>
@@ -31,7 +31,7 @@ export class Contributions extends Component {
     if ( this.props.type === 'Individual' && this.props.pacContributions.length > 0) {
       return this.props.individualContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
-            <h4>{contribution.contributor_name}: $ {contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
+            <h4>{contribution.contributor_name.toLowerCase()}: $ {contribution.contribution_receipt_amount.toLocaleString()} ({contribution.two_year_transaction_period})</h4>
             <p>Employer: {contribution.contributor_employer} | Location: {contribution.contributor_city}, {contribution.contributor_state}
             </p>
           </div>
@@ -42,6 +42,7 @@ export class Contributions extends Component {
   render() {
     return(
       <section className="Contributions">
+        <h3>{this.props.type} Contributions</h3>
         {this.generateContributionList(this.props.type)}
       </section>
     )
