@@ -60,48 +60,55 @@ export class App extends Component {
             return( <Committee committee_id={match.params.id}/> )
           }} />
 
-        <main> 
-          <h2>Is my favored presidential candidate accepting donations from organizations that align with my views?</h2>
-          <h2>Is my representative beholden to a certain industry? </h2>
-          <h2>What types of individuals are supporting my senator?</h2>
-          <p>Maxed-Out's mission is to get voters thinking about the money spent on
-            federal political campaigns. You'll be able to see individuals and organizations
-            that make the maximum allowable donations to a given campaign according to federal law. 
-          </p>
-          <p></p>
-          <div className="howTo">
-          <h3>Here's how:</h3>
-          <ul>
-            <li>Search for a candidate above.</li>
-            <li>If a candidate has run for more than one federal office, select which
-              campaign you're interested in. </li> 
-            <li>Campaign spending is done through campaign committees that are direclty associated
-              with a candidate's campaign. Sometimes there are more than one. Choose one to see which
-              individuals and Political Action Committees (PACs) are donating the maximum allowable amount
-              to a given campaign. 
-            </li>
-          </ul>
-          </div>
+        <Route exact path='/' render={() => {
+          return(
 
-          <div className="faq">
-            <h3>Did you know?</h3>
-            <p>Not all election spending is targeted to a specific candidate's campaign. </p>
-            <p>While Maxed-Out uses public information from the Federal Election Commission,
-              it can only show donations made directly to a campaign committee.
-            </p>
-            <p>Hundreds of millions of dollars are spent to support or defeat political campaigns
-              by organizations that do not need to disclose their donors due to being classified as 
-              non-profit. 
-            </p>
-            <p>So called Super-PACs are one classification of organizations that can raise
-              unlimited, undisclosed donations, but may not donate to or coordinate directly with
-              a particular campaign. 
-              <a href="https://www.opensecrets.org/pacs/superpacs.php" target="_blank" rel="noopener noreferrer">
-              (Read more about Super-PACs on OpenSecrets.org.)</a>
+            <main> 
+              <h2>Is my favored presidential candidate accepting donations from organizations that align with my views?</h2>
+              <h2>Is my representative beholden to a certain industry? </h2>
+              <h2>What types of individuals are supporting my senator?</h2>
+              <p>Maxed-Out's mission is to get voters thinking about the money spent on
+                federal political campaigns. You'll be able to see individuals and organizations
+                that make the maximum allowable donations to a given campaign according to federal law. 
+              </p>
+              <p></p>
+              <div className="howTo">
+              <h3>Here's how:</h3>
+              <ul>
+                <li>Search for a candidate above.</li>
+                <li>If a candidate has run for more than one federal office, select which
+                  campaign you're interested in. </li> 
+                <li>Campaign spending is done through campaign committees that are direclty associated
+                  with a candidate's campaign. Sometimes there are more than one. Choose one to see which
+                  individuals and Political Action Committees (PACs) are donating the maximum allowable amount
+                  to a given campaign. 
+                </li>
+              </ul>
+              </div>
 
-            </p>
-          </div>
-        </main>
+            
+              <div className="faq">
+                <h3>Did you know?</h3>
+                <p>Not all election spending is targeted to a specific candidate's campaign. </p>
+                <p>While Maxed-Out uses public information from the Federal Election Commission,
+                  it can only show donations made directly to a campaign committee.
+                </p>
+                <p>Hundreds of millions of dollars are spent to support or defeat political campaigns
+                  by organizations that do not need to disclose their donors due to being classified as 
+                  non-profit. 
+                </p>
+                <p>So called Super-PACs are one classification of organizations that can raise
+                  unlimited, undisclosed donations, but may not donate to or coordinate directly with
+                  a particular campaign. 
+                  <a href="https://www.opensecrets.org/pacs/superpacs.php" target="_blank" rel="noopener noreferrer">
+                  (Read more about Super-PACs on OpenSecrets.org.)</a>
+
+                </p>
+              </div>
+            </main>
+
+          )
+        }} />
       </div>
     )
   }

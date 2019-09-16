@@ -12,14 +12,24 @@ export class Contributions extends Component {
   }
 
   generateContributionList = () => {
-    if( this.props.type === 'PAC') {
+    if (this.props.type === 'PAC' && this.props.pacContributions.length === 0) {
+      return <h4>No {this.props.type} contributions found.</h4>
+    }
+    if (this.props.type === 'Individual' && this.props.individualContributions.length === 0) {
+      return <h4>No {this.props.type} contributions found.</h4>
+    }
+
+    if( this.props.type === 'PAC' && this.props.pacContributions.length > 0) {
       return this.props.pacContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
-          {contribution.contributor_name}: ${contribution.contribution_receipt_amount}
+          <h4>{contribution.contributor_name}: ${contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
+          <p>Type: {contribution.line_number_label}</p>
+          <p>Memo: {contribution.memo_text}</p>
         </div>
       })
     }
-    if ( this.props.type === 'Individual') {
+
+    if ( this.props.type === 'Individual' && this.props.pacContributions.length > 0) {
       return this.props.individualContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
             <h4>{contribution.contributor_name}: $ {contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
@@ -38,7 +48,8 @@ export class Contributions extends Component {
     
     return(
       <section className="Contributions">
-        {this.props.pacContributions.length > 0 && this.generateContributionList(this.props.type)}
+        {this.generateContributionList(this.props.type)}
+      
       </section>
     )
   }
