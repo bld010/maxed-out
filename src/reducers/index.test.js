@@ -1,6 +1,6 @@
 import React, { shallow } from 'react';
 
-describe('apiCalls', () => {
+describe('root reducer', () => {
   it('should be true', () => {
     expect(true).toEqual(true)
   })

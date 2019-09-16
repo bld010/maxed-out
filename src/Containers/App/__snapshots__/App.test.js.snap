@@ -6,7 +6,7 @@ exports[`App should match the snapshot with correct data passed through 1`] = `
 >
   <header>
     <h1>
-      Maxed-Out
+      Maxed
     </h1>
     <NavLink
       className="nav"
@@ -20,10 +20,11 @@ exports[`App should match the snapshot with correct data passed through 1`] = `
       className="search-and-disambiguation"
     >
       <h2>
-        Find Your Candidate
+        Find A Candidate
       </h2>
       <Connect(SearchForm) />
       <Route
+        exact={true}
         path="/candidate/:candidate_id"
         render={[Function]}
       />

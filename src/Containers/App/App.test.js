@@ -1,6 +1,7 @@
 import React from 'react';
-import { App } from './App';
+import { App, mapStateToProps, mapDispatchToProps } from './App';
 import { shallow, mount } from 'enzyme';
+import { setPacContributions, setCurrentCommitteeId, setIndividualContributions } from '../../actions/index'
 import { fetchPACContributions, fetchIndividualContributions } from '../../util/apiCalls';
 
 jest.mock('../../util/apiCalls.js');
@@ -101,15 +102,56 @@ describe('App', () => {
 
     })
 
-  
-
-
   describe('mapStateToProps', () => {
+    it('should return a candidate object and a committee_id', () => {
+      const mockState = {
+        candidate: { name: 'Dorvid' },
+        committee_id: 'ABC123'
+      }
 
+      const mappedProps = mapStateToProps(mockState);
+
+      expect(mappedProps).toEqual(mockState)
+
+    })
   })
 
   describe('mapDispatchToProps', () => {
 
-  })
+    let mockDispatch;
+    let mappedDispatchToProps;
+
+    beforeEach(() => {
+      mockDispatch = jest.fn();
+      mappedDispatchToProps = mapDispatchToProps(mockDispatch)
+    })
+
+    it('should call dispatch on setPacContributions action with pac_contributions', () => {
+      const mockPacContributions = [{ amount: 233 }, { amount: 7 }]
+      const dispatchedSetPacContributionsAction = setPacContributions(mockPacContributions)
+      mappedDispatchToProps.setPacContributions(mockPacContributions)
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetPacContributionsAction)
+    })
+
+    it('should call dispatch on setCurrentCommitteeId action with committee id', () => {
+      const mockId = "ABC123";
+      const dispatchedSetCurrentCommitteeIdAction = setCurrentCommitteeId(mockId);
+
+      mappedDispatchToProps.setCurrentCommitteeId(mockId);
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetCurrentCommitteeIdAction)
+
+    })
+
+     it('should call dispatch on setIndividualContributions action with individual_contributions', () => {
+      const mockContributions = [{ amount: 233 }, { amount: 7 }]
+      const dispatchedSetIndividualContributionsAction = setIndividualContributions(mockContributions)
+      mappedDispatchToProps.setIndividualContributions(mockContributions)
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetIndividualContributionsAction)
+    })
+
+    })
 })
 
