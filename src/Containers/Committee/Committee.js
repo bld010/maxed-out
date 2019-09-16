@@ -16,7 +16,7 @@ import {
 } from '../../util/apiCalls';
 
 
-class Committee extends Component {
+export class Committee extends Component {
   constructor(props) {
     super(props)
     this.state = {

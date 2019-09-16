@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Committee should match the snapshot with correct data passed in 1`] = `
+<section
+  className="Committee"
+>
+  <div
+    className="name-and-info"
+  />
+  <div
+    className="contributions-container"
+  >
+    <h2>
+      Loading
+    </h2>
+  </div>
+</section>
+`;
