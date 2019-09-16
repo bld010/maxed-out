@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setPacContributions, setCurrentCandidate, setCurrentCommitteeId } from '../actions/index.js';
-import { searchCandidateById } from '../util/apiCalls.js';
+import { setPacContributions, setCurrentCandidate, setCurrentCommitteeId } from '../../actions/index.js';
+import { searchCandidateById } from '../../util/apiCalls.js';
+import './SearchDisambiguation.scss';
 
 
 export class SearchDisambiguation extends Component {
-
 
   generateCommitteeList = () => {
     return this.props.candidate.principal_committees.map((committee, index) => {
       const { name, state, committee_id, committee_type_full } = committee
       return (
-        <Link key={index} to={`/candidate/${this.props.candidate.candidate_id}/committee/${committee_id}`}>
+        <Link 
+          key={index} 
+          to={`/candidate/${this.props.candidate.candidate_id}/committee/${committee_id}`}>
           <article onClick={() => this.props.setCurrentCommitteeId(committee_id)} className="committee-disambiguation">
             <p>{name} ({state} {committee_type_full})</p>
           </article>
@@ -38,8 +40,8 @@ export class SearchDisambiguation extends Component {
 
     return(
       <div className="SearchDisambiguation">
-      {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
-      {this.props.candidate && <><div>Select a Campaign Committee</div> {committeeList}</> }
+        {this.props.candidate && <p>Candidate: {this.props.candidate.name}</p>}
+        {this.props.candidate && <><div>Select a Campaign Committee</div> {committeeList}</> }
       </div>
     )
   }

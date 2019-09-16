@@ -12,10 +12,10 @@ export class Contributions extends Component {
   }
 
   generateContributionList = () => {
-    if (this.props.type === 'PAC' && this.props.pacContributions.length === 0) {
+    if (this.props.type === 'PAC' && this.props.pacContributions.length === 0 && this.props.candidate !== null) {
       return <h4>No {this.props.type} contributions found.</h4>
     }
-    if (this.props.type === 'Individual' && this.props.individualContributions.length === 0) {
+    if (this.props.type === 'Individual' && this.props.individualContributions.length === 0 && this.props.candidate !== null) {
       return <h4>No {this.props.type} contributions found.</h4>
     }
 
@@ -33,19 +33,15 @@ export class Contributions extends Component {
       return this.props.individualContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
             <h4>{contribution.contributor_name}: $ {contribution.contribution_receipt_amount} ({contribution.two_year_transaction_period})</h4>
-            <p>Employer: {contribution.contributor_employer}</p>
-            <p>Location: {contribution.contributor_city}, {contribution.contributor_state}</p>
+            <p>Employer: {contribution.contributor_employer} | Location: {contribution.contributor_city}, {contribution.contributor_state}
+            </p>
+           
           </div>
       })
     }
   }
 
-  componentDidMount = async () => {
-  }
-
-
   render() {
-    
     return(
       <section className="Contributions">
         {this.generateContributionList(this.props.type)}
@@ -61,12 +57,6 @@ export const mapStateToProps = state => ({
   pacContributions: state.pacContributions,
   individualContributions: state.individualContributions
 })
-
-// export const mapDispatchToProps = dispatch => ({
-//   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
-
-// })
-
 
 export default connect(mapStateToProps)(Contributions)
 

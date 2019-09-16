@@ -56,16 +56,18 @@ class Committee extends Component {
     return(
 
         <section className="Committee">
-          {this.state.committee_id && <p>{this.state.committee.committee_id}</p>}
-          {this.props.candidate && <p>{this.props.candidate.name}</p>}
-          <div className="contributions">
+          <div className="name-and-info">
+            {this.state.committee_id && <p>{this.state.committee.committee_id}</p>}
+            {this.props.candidate && <p>{this.props.candidate.name}</p>}
             <p>Note: Individuals are limited to $2,800 per campaign, while PACs are limited to $5000 per campaign. 
               Donations from local/district/state/national party committees are subject to higher limits. 
               <a href="https://www.fec.gov/introduction-campaign-finance/understanding-ways-support-federal-candidates/"
                 target="_blank" rel="noopener noreferrer">
               (Read more about federal campaign finance law on the Federal Election Commission's Website)</a></p>
-              {!this.state.isLoading &&<Contributions type="Individual" /> }
-              {!this.state.isLoading && <Contributions type="PAC" /> }
+          </div>
+          <div className="contributions-container">
+            {!this.state.isLoading && <Contributions type="Individual" /> }
+            {!this.state.isLoading && <Contributions type="PAC" /> }
           </div>
         </section>
     )

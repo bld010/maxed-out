@@ -1,7 +1,25 @@
 .SearchForm {
 
-  & .disambiguation {
+  display: flex;
+  flex-direction: column;
+
+  & input {
+    margin: 10px;
+    height: 30px;
+  }
+
+  & button {
+    margin: 10px;
+    height: 30px;
+
+    &:hover {
+      cursor: pointer
+    }
+  }
+
+  & .candidate-disambiguation {
     cursor: pointer;
-    text-transform: capitalize
+    text-transform: capitalize;
+    color: darkblue;
   }
 }

@@ -1,12 +1,17 @@
 .Contributions {
   width: 100%;
-  background: pink;
-  margin: 50px;
+  background: white;
+  min-height: 500px;
+  overflow: scroll;
+  filter: drop-shadow(0 0 8px #333);
+  border-radius: 8px;
+  margin: 20px;
+  // border: 1px solid black;
 
   & .contribution {
     margin: 10px;
     text-align: left;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid black;
   }
 }
