@@ -52,13 +52,26 @@ describe('SearchDisambiguation', () => {
 
   describe('generateCommitteeList', () => {
     it('returns an array of Link elements for each committee', () => {
+   
 
+      let result = wrapper.instance().generateCommitteeList();
+      expect(result.length).toEqual(4)
     })
   })
 
   describe('componentDidMount', () => {
-    it('fires searchCandidateById with the candidate_id', () => {
+    it('fires searchCandidateById with the candidate_id', async () => {
+    
+      let wrapper = shallow(
+        <SearchDisambiguation 
+          setCurrentCommitteId={mockSetCurrentCommitteeId}
+          setCurrentCandidate={mockSetCurrentCandidate}
+          candidate={mockCandidate}
+          committee_id={mockId}
+          candidate_id={'092384'}
+        />)
 
+      expect(searchCandidateById).toHaveBeenCalledWith('092384')
     })
 
     it('fires setCurrentCandidate with the candidate object', () => {
