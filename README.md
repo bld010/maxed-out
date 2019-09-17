@@ -1,68 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Maxed
 
-## Available Scripts
+This project combines React, React Router, and Redux to create a single-page web app that communicates with an external API. 
 
-In the project directory, you can run:
+I chose to use the Federal Election Commission's OpenFEC API, which stores all federal campaign-related contributions from individuals and political action committees (PACs). In the current iteration, the app can search for any federal political candidate and display those individuals and PACs who have maxed-out their contribution limits in the current 2020 election cycle. 
 
-### `npm start`
+## Learning Goals
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Testing all asynchronous JavaScript functionality. 
+- Testing all Redux functionality, including actions, reducers, mapStateToProps, mapDispatchToProps. 
+- Unit testing all components using Enzyme/Jest.
+- Storing all necessary application data within the Redux store. 
+- Ensuring all state changes are handled through Redux actions and reducers (with the exception of controlled forms).
+- Dynamic routing using React Router. 
+- Utilizing componentDidUpdate to allow for rendering or re-rendering components on dynamic Router paths. 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## The App
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Setup
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`git clone` this repository.
+Run `npm i` to install dependencies.
+Run `npm start` to see the app on a local server.
+Run `npm test` to see test coverage. 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
