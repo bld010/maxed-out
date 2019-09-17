@@ -5,6 +5,11 @@ import {searchCommitteeById,
         fetchIndividualContributions,
         fetchPACContributions,
         searchCandidateById } from '../../util/apiCalls';
+import { setPacContributions, 
+         setCurrentCommitteeId, 
+         setIndividualContributions,
+         setCurrentCandidate } from '../../actions/index'
+
 
 jest.mock('../../util/apiCalls');
 
@@ -132,8 +137,66 @@ describe('Committee', () => {
       wrapper.setProps({committee_id: 'QRS345'})
 
       expect(mockSetCurrentCommitteeId.mock.calls[1]).toEqual(['QRS345']);
+    })
+  })
+
+  describe('mapStateToProps', () => {
+    it('should return a candidate object and a committee_id', () => {
+      const mockState = {
+        candidate: { name: 'Dorvid' },
+        committee_id: 'ABC123'
+      }
+
+      const mappedProps = mapStateToProps(mockState);
+
+      expect(mappedProps).toEqual(mockState)
 
     })
   })
 
+  describe('mapDispatchToProps', () => {
+
+    let mockDispatch;
+    let mappedDispatchToProps;
+
+    beforeEach(() => {
+      mockDispatch = jest.fn();
+      mappedDispatchToProps = mapDispatchToProps(mockDispatch)
+    })
+
+    it('should call setCurrentCandidate action with candidate object', () => {
+      const mockCandidate = { name: 'Joe'}
+      const dispatchedSetCurrentCandidateAction = setCurrentCandidate(mockCandidate)
+      mappedDispatchToProps.setCurrentCandidate(mockCandidate)
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetCurrentCandidateAction)
+    })
+
+    it('should call dispatch on setPacContributions action with pac_contributions', () => {
+      const mockPacContributions = [{ amount: 233 }, { amount: 7 }]
+      const dispatchedSetPacContributionsAction = setPacContributions(mockPacContributions)
+      mappedDispatchToProps.setPacContributions(mockPacContributions)
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetPacContributionsAction)
+    })
+
+    it('should call dispatch on setCurrentCommitteeId action with committee id', () => {
+      const mockId = "ABC123";
+      const dispatchedSetCurrentCommitteeIdAction = setCurrentCommitteeId(mockId);
+
+      mappedDispatchToProps.setCurrentCommitteeId(mockId);
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetCurrentCommitteeIdAction)
+
+    })
+
+     it('should call dispatch on setIndividualContributions action with individual_contributions', () => {
+      const mockContributions = [{ amount: 233 }, { amount: 7 }]
+      const dispatchedSetIndividualContributionsAction = setIndividualContributions(mockContributions)
+      mappedDispatchToProps.setIndividualContributions(mockContributions)
+
+      expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetIndividualContributionsAction)
+    })
+
+    })
 })
