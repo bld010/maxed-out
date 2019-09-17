@@ -15,7 +15,7 @@ export class Contributions extends Component {
       return <h4>No {this.props.type} contributions found for the 2020 election cycle.</h4>
     }
     if (this.props.type === 'Individual' && this.props.individualContributions.length === 0 && this.props.candidate !== null) {
-      return <h4>No {this.props.type} contributions found  for the 2020 election cycle.</h4>
+      return <h4>No {this.props.type} contributions found for the 2020 election cycle.</h4>
     }
 
     if(this.props.type === 'PAC' && this.props.pacContributions.length > 0) {
@@ -28,7 +28,7 @@ export class Contributions extends Component {
       })
     }
 
-    if ( this.props.type === 'Individual' && this.props.pacContributions.length > 0) {
+    if ( this.props.type === 'Individual' && this.props.individualContributions.length > 0) {
       return this.props.individualContributions.map((contribution, index) => {
         return <div className="contribution" key={index}>
             <h4>{contribution.contributor_name.toLowerCase()}: $ {contribution.contribution_receipt_amount.toLocaleString()} ({contribution.two_year_transaction_period})</h4>

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contributions should match the snapshot with correct data passed in 1`] = `
+<section
+  className="Contributions"
+>
+  <h3>
+    PAC
+     Contributions
+  </h3>
+  <h4>
+    No 
+    PAC
+     contributions found for the 2020 election cycle.
+  </h4>
+</section>
+`;
