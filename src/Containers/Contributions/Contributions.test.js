@@ -1,13 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { 
-  setCurrentCandidate, 
-  setCurrentCommitteeId, 
-  setPacContributions, 
-  setIndividualContributions 
-} from '../../actions/index';
 
-import { Contributions, mapStateToProps, mapDispatchToProps } from './Contributions'
+import { Contributions, mapStateToProps } from './Contributions'
 
 describe('Contributions', () => {
 
@@ -21,7 +15,6 @@ describe('Contributions', () => {
 
     expect(wrapper).toMatchSnapshot();
   })
-
 
   describe('generateContributionList', () => {
 
@@ -137,10 +130,6 @@ describe('Contributions', () => {
       const mappedProps = mapStateToProps(mockState);
 
       expect(mappedProps).toEqual(mockState)
-
     })
   })
-
-
-
 })

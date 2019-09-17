@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setPacContributions, setCurrentCandidate, setCurrentCommitteeId } from '../../actions/index.js';
+import { setCurrentCandidate, setCurrentCommitteeId } from '../../actions/index.js';
 import { searchCandidateById } from '../../util/apiCalls.js';
 import './SearchDisambiguation.scss';
 
@@ -60,7 +60,6 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id)),
-  setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
   setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
 })
 

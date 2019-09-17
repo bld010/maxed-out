@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchDisambiguation should match the snapshot with correct data passed in 1`] = `
+<div
+  className="SearchDisambiguation"
+>
+  <p>
+    Candidate: 
+    Uno
+  </p>
+  <p>
+    Select a Campaign Committee: 
+  </p>
+   
+  <Link
+    key="0"
+    to="/candidate/undefined/committee/EFG345"
+  >
+    <button
+      className="committee-disambiguation"
+      onClick={[Function]}
+    >
+      Pizza 4 All
+       (
+      CO
+       
+      Senate
+      )
+    </button>
+  </Link>
+  <Link
+    key="1"
+    to="/candidate/undefined/committee/EFG345"
+  >
+    <button
+      className="committee-disambiguation"
+      onClick={[Function]}
+    >
+      Pizza 4 All
+       (
+      CO
+       
+      Senate
+      )
+    </button>
+  </Link>
+  <Link
+    key="2"
+    to="/candidate/undefined/committee/EFG345"
+  >
+    <button
+      className="committee-disambiguation"
+      onClick={[Function]}
+    >
+      Pizza 4 All
+       (
+      CO
+       
+      Senate
+      )
+    </button>
+  </Link>
+  <Link
+    key="3"
+    to="/candidate/undefined/committee/EFG345"
+  >
+    <button
+      className="committee-disambiguation"
+      onClick={[Function]}
+    >
+      Pizza 4 All
+       (
+      CO
+       
+      Senate
+      )
+    </button>
+  </Link>
+</div>
+`;
