@@ -144,10 +144,10 @@ describe('App', () => {
 
     })
 
-     it('should call dispatch on setIndividualContributions action with individual_contributions', () => {
-      const mockContributions = [{ amount: 233 }, { amount: 7 }]
-      const dispatchedSetIndividualContributionsAction = setIndividualContributions(mockContributions)
-      mappedDispatchToProps.setIndividualContributions(mockContributions)
+    it('should call dispatch on setIndividualContributions action with individual_contributions', () => {
+      const mockIndividualContributions = [{ amount: 233 }, { amount: 7 }]
+      const dispatchedSetIndividualContributionsAction = setPacContributions(mockIndividualContributions)
+      mappedDispatchToProps.setPacContributions(mockIndividualContributions)
 
       expect(mockDispatch).toHaveBeenCalledWith(dispatchedSetIndividualContributionsAction)
     })

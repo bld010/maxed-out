@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './SearchForm.scss';
 import { searchCandidateByName } from '../../util/apiCalls';
 import { connect } from 'react-redux';
-import { setCurrentCandidate, setPacContributions, setCurrentCommitteeId, setIndividualContributions } from '../../actions';
+import { setCurrentCandidate, setPacContributions, setIndividualContributions } from '../../actions';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -28,16 +28,16 @@ export class SearchForm extends Component {
     this.setState({ searchTerm: ''});
   }
 
-  checkResultsBeforeUpdatingStore = async (results) => {
+  checkResultsBeforeUpdatingStore = (results) => {
     if (results.length > 1) {
       this.setState({ 
         multipleEntries: true,
         results: results
       })
     } else {
-      await this.props.setCurrentCandidate(results[0]);
-      await this.props.setPacContributions([]);
-      await this.props.setIndividualContributions([]);
+      this.props.setCurrentCandidate(results[0]);
+      this.props.setPacContributions([]);
+      this.props.setIndividualContributions([]);
       this.setState({ results: results, multipleEntries: false });
       this.resetError()
     }
@@ -52,11 +52,11 @@ export class SearchForm extends Component {
   }
 
   generateCandidateDisambiguationList = (results) => {
-    return results.map(campaign => {
+    return results.map((campaign, index) => {
       return (
         <Link to={`/candidate/${campaign.candidate_id}`}
           tabIndex={0} 
-          key={campaign.candidate_id} 
+          key={campaign.candidate_id + index} 
           onClick={() => {this.handleCandidateDisambiguationSelection(campaign)}}>
           <button className="candidate-disambiguation">{campaign.name} ({campaign.state} {campaign.office_full})</button> 
         </Link>
@@ -108,7 +108,6 @@ export class SearchForm extends Component {
 export const mapDispatchToProps = dispatch => ({
   setCurrentCandidate: candidate => dispatch(setCurrentCandidate(candidate)),
   setPacContributions: pac_contributions => dispatch(setPacContributions(pac_contributions)),
-  setCurrentCommitteeId: committee_id => dispatch(setCurrentCommitteeId(committee_id)),
   setIndividualContributions: individual_contributions => dispatch(setIndividualContributions(individual_contributions))
 })
 
