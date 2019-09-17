@@ -152,6 +152,8 @@ describe('Committee', () => {
       expect(mappedProps).toEqual(mockState)
 
     })
+
+
   })
 
   describe('mapDispatchToProps', () => {

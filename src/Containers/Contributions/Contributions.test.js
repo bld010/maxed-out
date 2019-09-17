@@ -1,7 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { 
+  setCurrentCandidate, 
+  setCurrentCommitteeId, 
+  setPacContributions, 
+  setIndividualContributions 
+} from '../../actions/index';
 
-import { Contributions } from './Contributions'
+import { Contributions, mapStateToProps, mapDispatchToProps } from './Contributions'
 
 describe('Contributions', () => {
 
@@ -120,5 +126,21 @@ describe('Contributions', () => {
       })
     })
   })
+
+  describe('mapStateToProps', () => {
+    it('should return a candidate object and a committee_id', () => {
+      const mockState = {
+        candidate: { name: 'Dorvid' },
+        committee_id: 'ABC123'
+      }
+
+      const mappedProps = mapStateToProps(mockState);
+
+      expect(mappedProps).toEqual(mockState)
+
+    })
+  })
+
+
 
 })
