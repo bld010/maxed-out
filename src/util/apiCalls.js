@@ -6,10 +6,10 @@ export const searchCandidateByName = async (searchTerm) => {
 
   try {
     let candidateSearchResult = await fetch(url)
-    let results = await candidateSearchResult.json()
-    if (results.ok === false) {
+    if (candidateSearchResult.ok === false) {
       throw new Error('There was an error searching for the candidate')
     }
+    let results = await candidateSearchResult.json()
     return(results.results)
   } catch (err) {
     throw err
@@ -20,10 +20,10 @@ export const searchCommitteeById = async (committee_id) => {
   let url = `https://api.open.fec.gov/v1/committee/${committee_id}/?sort=name&sort_null_only=false&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&per_page=100&sort_nulls_last=false&sort_hide_null=true&page=1`
   try {
     let committeeSearchResult = await fetch(url);
-    let results = await committeeSearchResult.json();
-    if (results.ok === false) {
+    if (committeeSearchResult.ok === false) {
       throw new Error('There was an error finding the requested committee')
     }
+    let results = await committeeSearchResult.json();
     return(results.results)
   } catch(err) {
     throw err
@@ -38,10 +38,10 @@ export const searchCandidateById = async (candidate_id) => {
 
   try {
     let candidateSearchResult = await fetch(url);
-    let results = await candidateSearchResult.json();
-    if (results.ok === false) {
+    if (candidateSearchResult.ok === false) {
       throw new Error ('There was an error searching for the candidate')
     }
+    let results = await candidateSearchResult.json();
     return results.results
   } catch (err) {
     throw err
@@ -54,10 +54,10 @@ export const fetchPACContributions = async (committee_id) => {
 
   try {
     let pacContributions = await fetch(url);
-    let results = await pacContributions.json();
-    if (results.ok === false) {
+    if (pacContributions.ok === false) {
       throw new Error ('There was an error getting the PAC contributions')
     }
+    let results = await pacContributions.json();
     return results.results
   } catch (err) {
     throw err
@@ -70,10 +70,10 @@ export const fetchIndividualContributions = async (committee_id) => {
 
   try {
     let individualContributions = await fetch(url);
-    let results = await individualContributions.json();
-    if (results.ok === false) {
+    if (individualContributions.ok === false) {
       throw new Error ('There was an error getting the PAC contributions')
     }
+    let results = await individualContributions.json();
     return results.results
   } catch (err) {
     throw err
