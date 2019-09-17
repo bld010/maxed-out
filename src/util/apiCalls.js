@@ -70,7 +70,7 @@ export const fetchIndividualContributions = async (committee_id) => {
   try {
     let individualContributions = await fetch(url);
     if (individualContributions.ok === false) {
-      throw new Error ('There was an error getting the PAC contributions')
+      throw new Error ('There was an error getting the Individual contributions')
     }
     let results = await individualContributions.json();
     return results.results

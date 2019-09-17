@@ -157,37 +157,91 @@ describe('apiCalls', () => {
 
   describe('fetchPACContributions', () => {
     it('should call fetch with the correct url', () => {
-      
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({results: [7, 8, 9]})
+        })
+      })
+      let mockId = "1011"
+      let expectedUrl = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=1011&min_amount=5000&per_page=50&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=false&sort_hide_null=false&sort=contribution_receipt_date&two_year_transaction_period=2020`
+
+      fetchPACContributions(mockId)
+      expect(window.fetch).toHaveBeenCalledWith(expectedUrl)
     })
 
     it('should return an array of contributions when successful', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({results: [7, 8, 9]})
+        })
+      })
 
+      let mockId = "12345";
+
+      expect(fetchPACContributions(mockId)).resolves.toEqual([7, 8, 9]);
     })
 
     it('should throw an error when results are not ok', () => {
-
+      window.fetch = jest.fn().mockImplementation(() => Promise.resolve({ok: false}))
+      
+      let mockId = "12345";
+  
+      expect(fetchPACContributions(mockId)).rejects.toEqual(Error ('There was an error getting the PAC contributions'));
     })
 
-    it('should throw an error when promise is rejected', () => {
-
+      it('should throw an error when promise is rejected', () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+          return Promise.reject(Error ('There was an error getting the PAC contributions'))
+        })
+        let mockId = "12345"
+        expect(fetchPACContributions(mockId)).rejects.toEqual(Error ('There was an error getting the PAC contributions'));
     })
   })
 
   describe('fetchIndividualContributions', () => {
     it('should call fetch with the correct url', () => {
-      
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({results: [7, 8, 9]})
+        })
+      })
+      let mockId = "6789"
+      let expectedUrl = `https://api.open.fec.gov/v1/schedules/schedule_a/?sort_null_only=false&committee_id=6789&min_amount=2800&per_page=50&api_key=x6zpz92JgOnDxuca5Vf6QGJIV46FkTVYMvAfBNGl&is_individual=true&sort_hide_null=false&sort=contribution_receipt_date&two_year_transaction_period=2020`
+
+      fetchIndividualContributions(mockId)
+      expect(window.fetch).toHaveBeenCalledWith(expectedUrl)
     })
 
     it('should return an array of contributions when successful', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({results: [7, 8, 9]})
+        })
+      })
 
+      let mockId = "12345";
+
+      expect(fetchIndividualContributions(mockId)).resolves.toEqual([7, 8, 9]);
     })
 
     it('should throw an error when results are not ok', () => {
-
+      window.fetch = jest.fn().mockImplementation(() => Promise.resolve({ok: false}))
+      
+      let mockId = "12345";
+  
+      expect(fetchIndividualContributions(mockId)).rejects.toEqual(Error ('There was an error getting the Individual contributions'));
     })
 
     it('should throw an error when promise is rejected', () => {
-      
-    })
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject(Error ('There was an error getting the Individual contributions'))
+      })
+      let mockId = "12345"
+      expect(fetchIndividualContributions(mockId)).rejects.toEqual(Error ('There was an error getting the Individual contributions'));
+  })
   })
 })
