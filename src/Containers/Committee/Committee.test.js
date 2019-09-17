@@ -17,16 +17,17 @@ describe('Committee', () => {
     wrapper.update();
   });
   let mockSetIndividualContributions = jest.fn();
+  let mockSetCurrentCandidate = jest.fn()
 
   beforeEach(() => {
     wrapper = shallow(<Committee 
       idFromMatch={"XYZ"} 
       candidate={{name: 'John Hickenlooper'}}
-      committee_id={"ABC123"}
+      committee_id={"LMN890"}
       setPacContributions={mockSetPacContributions}
       setCurrentCommitteeId={mockSetCurrentCommitteeId}
       setIndividualContributions={mockSetIndividualContributions}
-      setCurrentCommitteeId = {mockSetCurrentCommitteeId}
+      setCurrentCandidate = {mockSetCurrentCandidate}
       />)
   })
 
@@ -41,9 +42,9 @@ describe('Committee', () => {
     beforeEach(() => {
       searchCommitteeById.mockImplementation(() => {
         return Promise.resolve(
-          [ {name: 'J', candidateIds: ["ABC123"]}, 
-            {name: 'K', candidateIds: ["DEF123"]}, 
-            {name: 'L', candidateIds: ["GHI123"]}])
+          [ {name: 'J', candidate_ids: ["ABC123"]}, 
+            {name: 'K', candidate_ids: ["DEF123"]}, 
+            {name: 'L', candidate_ids: ["GHI123"]}])
       })
 
       searchCandidateById.mockImplementation(() => {
@@ -61,19 +62,47 @@ describe('Committee', () => {
   
     it('should fire setCurrentCommitteeId if committee_id is null with the id from the url', async () => {
       delete global.window.location;
-      global.window.location = { pathname: '/blah/123/committee/ABC123' }
+      global.window.location = { pathname: '/blah/123/committee/RST123' }
       
       wrapper = shallow(<Committee 
         idFromMatch={undefined} 
         candidate={{name: 'John Hickenlooper'}}
         committee_id={null}
+        setCurrentCandidate={mockSetCurrentCandidate}
         setPacContributions={mockSetPacContributions}
         setCurrentCommitteeId={mockSetCurrentCommitteeId}
         setIndividualContributions={mockSetIndividualContributions}
         />)
 
         await wrapper.update()
-      expect(mockSetCurrentCommitteeId).toHaveBeenCalledWith('ABC123')
+      expect(mockSetCurrentCommitteeId).toHaveBeenCalledWith('RST123')
+    })
+
+    it('should fire searchCommitteeById with the committee id', () => {
+
+      expect(searchCommitteeById).toHaveBeenCalledWith("LMN890")
+    })
+
+    it('should fire searchCandidateById with candidate id', () => {
+      
+      expect(searchCandidateById).toHaveBeenCalledWith("ABC123")
+
+    })
+
+    it('should fire setCurrentCandidate with correct candidate object', () => {
+      expect(mockSetCurrentCandidate).toHaveBeenCalledWith({ name: 'Joe'})
+    })
+
+    it('should fire fetchIndividualContributions with committe_id', () => {
+      expect(fetchIndividualContributions).toHaveBeenCalledWith("LMN890")
+    })
+
+    it('should fire fetchPACContributions with committee_id', () => {
+      expect(fetchPACContributions).toHaveBeenCalledWith("LMN890")
+    })
+
+    it('should fire setPacContributions with array of contributions from fetch', () => {
+      expect(mockSetPacContributions).toHaveBeenCalledWith([{amount: 5}, {amount: 1}])
     })
   })
 
