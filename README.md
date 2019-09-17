@@ -24,6 +24,7 @@ I chose to use the Federal Election Commission's OpenFEC API, which stores all f
 
 ## The App
 
+![Maxed Out Demo](src/readme.gif)
 
 
 ## Setup
