@@ -75,7 +75,16 @@ describe('SearchDisambiguation', () => {
     })
 
     it('fires setCurrentCandidate with the candidate object', () => {
-    
+      let wrapper = shallow(
+        <SearchDisambiguation 
+          setCurrentCommitteId={mockSetCurrentCommitteeId}
+          setCurrentCandidate={mockSetCurrentCandidate}
+          candidate={mockCandidate}
+          committee_id={mockId}
+          candidate_id={'092384'}
+        />)
+
+      expect(mockSetCurrentCandidate).toHaveBeenCalledWith(mockCandidate)
     })
   })
 
