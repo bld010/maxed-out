@@ -8,6 +8,7 @@ import { Route, NavLink } from 'react-router-dom';
 import { setPacContributions, setIndividualContributions, setCurrentCommitteeId } from '../../actions';
 import { fetchPACContributions, fetchIndividualContributions } from '../../util/apiCalls';
 import SearchDisambiguation from '../SearchDisambiguation/SearchDisambiguation.js';
+import PropTypes from 'prop-types';
 
 
 export class App extends Component {
@@ -88,4 +89,13 @@ export const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-// PropTypes
+App.propTypes = {
+  candidate: PropTypes.object,
+  committee_id: PropTypes.string,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object,
+  setCurrentCommitteeId: PropTypes.func.isRequired,
+  setIndividualContributions: PropTypes.func.isRequired,
+  setPacContributions: PropTypes.func.isRequired
+}

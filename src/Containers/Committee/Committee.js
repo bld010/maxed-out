@@ -14,6 +14,7 @@ import {
   searchCandidateById,
   fetchIndividualContributions 
 } from '../../util/apiCalls';
+import PropTypes from 'prop-types';
 
 
 export class Committee extends Component {
@@ -86,6 +87,7 @@ export class Committee extends Component {
   }
 
   render() {
+  
     return(
       <section className="Committee">
         <div className="name-and-info">
@@ -119,4 +121,12 @@ export const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Committee);
 
-//PropTypes
+Committee.propTypes = {
+  setCurrentCandidate: PropTypes.func.isRequired,
+  idFromMatch: PropTypes.string,
+  candidate: PropTypes.object,
+  committee_id: PropTypes.string,
+  setCurrentCommitteeId: PropTypes.func.isRequired,
+  setIndividualContributions: PropTypes.func.isRequired,
+  setPacContributions: PropTypes.func.isRequired
+}

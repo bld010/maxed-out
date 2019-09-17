@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { setCurrentCandidate, setCurrentCommitteeId } from '../../actions/index.js';
 import { searchCandidateById } from '../../util/apiCalls.js';
 import './SearchDisambiguation.scss';
+import PropTypes from 'prop-types';
 
 
 export class SearchDisambiguation extends Component {
@@ -32,6 +33,7 @@ export class SearchDisambiguation extends Component {
   }
   
   render() {
+
     let committeeList; 
 
     if (this.props.candidate) {
@@ -64,3 +66,11 @@ export const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchDisambiguation);
+
+SearchDisambiguation.propTypes = {
+  setCurrentCandidate: PropTypes.func.isRequired,
+  setCurrentCommitteeId: PropTypes.func.isRequired,
+  candidate_id: PropTypes.string,
+  committee_id: PropTypes.string,
+  candidate: PropTypes.object
+}

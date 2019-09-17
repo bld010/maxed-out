@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import './Contributions.scss';
+import PropTypes from 'prop-types';
 
 export class Contributions extends Component {
   constructor(props) {
@@ -59,6 +60,13 @@ export const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Contributions)
 
 
-// propTYpes
+Contributions.propTypes = {
+  candidate: PropTypes.object,
+  committee_id: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
+  individualContributions: PropTypes.array,
+  pacContributions: PropTypes.array,
+  type: PropTypes.string.isRequired
+}
 
 
