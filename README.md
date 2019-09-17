@@ -14,6 +14,14 @@ I chose to use the Federal Election Commission's OpenFEC API, which stores all f
 - Dynamic routing using React Router. 
 - Utilizing componentDidUpdate to allow for rendering or re-rendering components on dynamic Router paths. 
 
+## Future Iterations 
+
+- Pagination through all results
+- Ability to choose election cycle year 
+- Search by zipcode and state for candidates
+- Ability to view PDFs of FEC filings for each contribution
+- Ability to contact incumbents via e-mail?
+
 ## The App
 
 
