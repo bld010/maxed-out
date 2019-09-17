@@ -84,9 +84,7 @@ describe('Committee', () => {
     })
 
     it('should fire searchCandidateById with candidate id', () => {
-      
       expect(searchCandidateById).toHaveBeenCalledWith("ABC123")
-
     })
 
     it('should fire setCurrentCandidate with correct candidate object', () => {
@@ -103,6 +101,38 @@ describe('Committee', () => {
 
     it('should fire setPacContributions with array of contributions from fetch', () => {
       expect(mockSetPacContributions).toHaveBeenCalledWith([{amount: 5}, {amount: 1}])
+    })
+
+  })
+
+  describe('componentDidUpdate', () => {
+
+    beforeEach(() => {
+      searchCommitteeById.mockImplementation(() => {
+        return Promise.resolve(
+          [ {name: 'J', candidate_ids: ["ABC123"]}, 
+            {name: 'K', candidate_ids: ["DEF123"]}, 
+            {name: 'L', candidate_ids: ["GHI123"]}])
+      })
+
+      searchCandidateById.mockImplementation(() => {
+        return Promise.resolve([{ name: 'Joe'}] )
+      })
+
+      fetchIndividualContributions.mockImplementation(() => {
+        return Promise.resolve([{amount: 5}, {amount: 7}])
+      })
+
+      fetchPACContributions.mockImplementation(() => {
+        return Promise.resolve([{amount: 5}, {amount: 1}])
+      })
+    })
+
+    it('should fire the try block if props change', () => {
+      wrapper.setProps({committee_id: 'QRS345'})
+
+      expect(mockSetCurrentCommitteeId.mock.calls[1]).toEqual(['QRS345']);
+
     })
   })
 
