@@ -28,7 +28,6 @@ export const searchCommitteeById = async (committee_id) => {
   } catch(err) {
     throw err
   }
-
 }
 
 export const searchCandidateById = async (candidate_id) => {

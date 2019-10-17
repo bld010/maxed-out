@@ -35,7 +35,6 @@ export class Committee extends Component {
     if (prevProps.committee_id !== this.props.committee_id) {
       this.setState({isLoading: true})
 
-      
       try {
       await this.props.setCurrentCommitteeId(this.props.committee_id)
       let committeeSearchResults = await searchCommitteeById(this.props.committee_id);      
